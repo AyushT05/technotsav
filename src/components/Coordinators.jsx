@@ -1,4 +1,4 @@
-import DishanImg from "../assets/DishanImg.jpg";
+import DishanImg from "../assets/dishanImg.jpg";
 import KeerthanImg from "../assets/KeerthanImg.jpeg";
 
 function Coordinators() {
