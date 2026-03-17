@@ -1,0 +1,56 @@
+function About() {
+  return (
+    <section className="section" id="about">
+      <div className="about-grid">
+        
+        <div className="about-text reveal">
+          <p className="section-label">&gt; About the Event</p>
+          
+          <h2 className="section-title">
+            Build. Break.<br />Innovate.
+          </h2>
+
+          <p>
+            TECHNOTSAV is the flagship 24-hour hackathon organized by the
+            Department of CSE (Artificial Intelligence & Machine Learning) at
+            Vidyavardhaka College of Engineering, Mysuru.
+          </p>
+
+          <p>
+            Compete with the brightest minds, tackle real-world problem
+            statements, and build solutions that matter — all in one
+            adrenaline-fueled day. Supported by IEEE and the Computational
+            Intelligence Society.
+          </p>
+        </div>
+
+        <div className="about-stats reveal">
+          
+          <div className="stat-card">
+            <span className="stat-num">24</span>
+            <span className="stat-label">Hours of hacking</span>
+          </div>
+
+          <div className="stat-card">
+            <span className="stat-num">4</span>
+            <span className="stat-label">Problem Domains</span>
+          </div>
+
+          <div className="stat-card">
+            <span className="stat-num">100K+</span>
+            <span className="stat-label">Prize Pool (₹)</span>
+          </div>
+
+          <div className="stat-card">
+            <span className="stat-num">2–4</span>
+            <span className="stat-label">Members / Team</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+export default About;
