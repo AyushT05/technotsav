@@ -1,11 +1,7 @@
 function Ticker() {
   const items = [
-    "CYBERSECURITY",
-    "FINTECH",
-    "INTERNET OF THINGS",
-    "SUSTAINABLE DEVELOPMENT",
-    "24HR HACKATHON",
-    "₹1,00,000+ PRIZE POOL",
+    "Registrations Opening Soon!",
+    "₹60,000+ PRIZE POOL",
     "APRIL 15–16",
     "VVCE MYSURU",
   ];

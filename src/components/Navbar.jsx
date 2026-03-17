@@ -42,7 +42,7 @@ function Navbar() {
         <a href="#register" onClick={closeMenu}>Register</a>
         <a href="#contact" onClick={closeMenu}>Contact</a>
 
-        <a href="#register" className="nav-cta" onClick={closeMenu}>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScNL5k6rIkWgJW6vDy2zkgjG-76oth5cLgl30ijKgkrnp3-jA/viewform" className="nav-cta" onClick={closeMenu}>
           Register Now →
         </a>
       </div>

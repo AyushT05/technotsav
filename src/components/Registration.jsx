@@ -22,8 +22,8 @@ function Registration() {
             <li>Meals & refreshments provided throughout the event</li>
           </ul>
 
-          <a href="#" className="reg-btn">
-            Scan QR / Register Online →
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScNL5k6rIkWgJW6vDy2zkgjG-76oth5cLgl30ijKgkrnp3-jA/viewform" className="reg-btn">
+            Register Online →
           </a>
         </div>
 
@@ -31,13 +31,12 @@ function Registration() {
         <div className="reg-card reveal">
           <h3>Prizes & Perks</h3>
 
-          <div className="fee-big">₹1L+</div>
+          <div className="fee-big">₹60,000+</div>
           <div className="fee-sub">Total prize pool</div>
 
           <ul className="reg-list" style={{ marginTop: "24px" }}>
             <li>Cash prizes for top 3 teams per domain</li>
             <li>Certificates for all participants</li>
-            <li>Special awards for best UI/UX & innovation</li>
             <li>Networking with IEEE & industry professionals</li>
             <li>Swag kits and goodies</li>
           </ul>

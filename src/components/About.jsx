@@ -28,7 +28,7 @@ function About() {
           
           <div className="stat-card">
             <span className="stat-num">24</span>
-            <span className="stat-label">Hours of hacking</span>
+            <span className="stat-label">Hours of Coding</span>
           </div>
 
           <div className="stat-card">
@@ -37,7 +37,7 @@ function About() {
           </div>
 
           <div className="stat-card">
-            <span className="stat-num">100K+</span>
+            <span className="stat-num">60,000+</span>
             <span className="stat-label">Prize Pool (₹)</span>
           </div>
 
