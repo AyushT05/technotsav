@@ -329,7 +329,7 @@ function AnimatedTitle() {
 
       {/* Coral scratch underline draws in after title lands */}
       <span style={{
-        position:"absolute", bottom:"-6px", left:0, right:0,
+        position:"absolute", bottom:"-12px", left:0, right:0,
         height:"4px", background:"var(--coral)", borderRadius:"2px",
         display:"block",
         animation: go ? "scratchIn 0.8s cubic-bezier(0.22,1,0.36,1) 1.1s both" : "none",

@@ -14,7 +14,7 @@ function Navbar() {
   return (
     <>
       <nav>
-        <span className="nav-logo">TECHNOTSAV</span>
+        
 
         <ul className="nav-links">
           <li><a href="#about">About</a></li>

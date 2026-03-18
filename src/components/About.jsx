@@ -22,6 +22,15 @@ function About() {
             adrenaline-fueled day. Supported by IEEE and the Computational
             Intelligence Society.
           </p>
+
+          <a
+            href="https://vvce.ac.in/about/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="about-btn"
+          >
+            Learn more about VVCE →
+          </a>
         </div>
 
         <div className="about-stats reveal">

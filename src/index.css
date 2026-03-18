@@ -40,15 +40,20 @@ body {
 
 /* NAV */
 nav {
-  background: var(--dark-green);
+  background: rgba(26, 58, 42, 0.75); /* semi-transparent green */
+  backdrop-filter: blur(12px);        /* 🔥 main effect */
+  -webkit-backdrop-filter: blur(12px); /* Safari fix */
+
   padding: 14px 5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 3px solid var(--yellow);
+
+  border-bottom: 1.5px solid rgba(240, 180, 41, 0.4); /* softer border */
 }
 
 .nav-logo {
@@ -94,6 +99,8 @@ nav {
   background: var(--rust);
   transform: scale(1.04);
 }
+
+
 
 .hamburger {
   display: none;
@@ -150,6 +157,8 @@ nav {
   padding: 60px 5%;
   position: relative;
   overflow: hidden;
+  margin-top: -70px; 
+  padding-top: 70px;
 }
 
 .hero-stripes {
@@ -1042,6 +1051,27 @@ footer {
   .hero-title {
     font-size: clamp(2.8rem, 15vw, 6rem);
   }
+}
+
+.about-btn {
+  display: inline-block;
+  margin-top: 24px;
+  background: var(--dark-green);
+  color: var(--cream);
+  font-family: 'Lovelo', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 4px 4px 0 var(--mid-green);
+}
+
+.about-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--mid-green);
+  background: var(--coral);
 }
 
 @media(max-width:480px) {

@@ -479,6 +479,12 @@ function Timeline() {
       desc: "Coding stops. Judges begin evaluating projects based on innovation, impact, technical complexity, and presentation.",
     },
 
+    {
+      time: "Day 2 · 10:30 PM",
+      title: "Valedictory & Awards Ceremony",
+      desc: "Winners are announced, and certificates are distributed to all participants.",
+    }
+
 
   ];
 
