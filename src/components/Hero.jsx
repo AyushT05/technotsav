@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 /* ═══════════════════════════════════════════════════
-   KEYFRAMES
+   KEYFRAMES  (original + CRT additions)
 ═══════════════════════════════════════════════════ */
 const STYLES = `
   @keyframes grainShift {
@@ -49,14 +49,10 @@ const STYLES = `
     0%,100% { opacity: 0.06; }
     50%     { opacity: 0.14; }
   }
-
-  /* ── Title fade-up entrance (whole word) ── */
   @keyframes titleIn {
     0%   { opacity:0; transform: translateY(22px); }
     100% { opacity:1; transform: translateY(0); }
   }
-
-  /* ── Slow ghost flicker on the yellow span ── */
   @keyframes spanFlicker {
     0%,100% { opacity:1; }
     92%     { opacity:1; }
@@ -65,22 +61,217 @@ const STYLES = `
     97%     { opacity:0.7; }
     98%     { opacity:1; }
   }
-
-  /* ── Scratch underline draw ── */
   @keyframes scratchIn {
     from { transform: scaleX(0); transform-origin: left; }
     to   { transform: scaleX(1); transform-origin: left; }
   }
-
-  /* ── Badge pulse ── */
   @keyframes badgePulse {
     0%,100% { box-shadow: 6px 6px 0 #A03820; }
     50%     { box-shadow: 9px 9px 0 #A03820, 0 0 0 5px rgba(216,90,48,0.15); }
   }
+
+  /* ── CRT wavy warp: slow vertical undulation ── */
+  @keyframes crtWave {
+    0%   { d: path("M0,0 Q50,1 100,0 Q150,-1 200,0 L200,100 L0,100 Z"); }
+    25%  { d: path("M0,0 Q50,2 100,0 Q150,-2 200,0 L200,100 L0,100 Z"); }
+    50%  { d: path("M0,0 Q50,-1 100,0 Q150,1.5 200,0 L200,100 L0,100 Z"); }
+    75%  { d: path("M0,0 Q50,1.5 100,-1 Q150,2 200,0 L200,100 L0,100 Z"); }
+    100% { d: path("M0,0 Q50,1 100,0 Q150,-1 200,0 L200,100 L0,100 Z"); }
+  }
+
+  /* ── CRT scanline drift ── */
+  @keyframes scanDrift {
+    from { background-position: 0 0; }
+    to   { background-position: 0 -8px; }
+  }
+
+  /* ── Rolling scan bar ── */
+  @keyframes rollBar {
+    0%   { top: -8%; }
+    100% { top: 108%; }
+  }
+
+  /* ── Intermittent static burst ── */
+  @keyframes staticBurst {
+    0%,82%,84%,87%,89%,92%,94%,100% { opacity: 0; }
+    83%,88%,93% { opacity: 0.18; }
+  }
+
+  /* ── RGB shift: slight chromatic aberration pulse ── */
+  @keyframes rgbShift {
+    0%,100% { text-shadow:
+      -1px 0 0 rgba(255,50,50,0.35),
+       1px 0 0 rgba(50,200,255,0.35),
+       3px  3px 0 rgba(140,48,20,0.5),
+       5px  5px 0 rgba(0,0,0,0.15); }
+    50% { text-shadow:
+      -2px 0 0 rgba(255,50,50,0.2),
+       2px 0 0 rgba(50,200,255,0.2),
+       3px  3px 0 rgba(140,48,20,0.5),
+       5px  5px 0 rgba(0,0,0,0.15); }
+  }
+
+  /* ── Phosphor glow on the title ── */
+@keyframes phosphorGlow {
+  0%,100% {
+    text-shadow:
+      0 0 2px #FFD84D,
+      0 0 6px #FFD84D,
+      0 0 12px #FFD84D,
+      0 0 24px #FFB300,
+      0 0 48px #FF8C00,
+      0 0 90px rgba(255,140,0,0.5);
+  }
+  50% {
+    text-shadow:
+      0 0 3px #FFD84D,
+      0 0 8px #FFD84D,
+      0 0 18px #FFD84D,
+      0 0 36px #FFB300,
+      0 0 70px #FF8C00,
+      0 0 120px rgba(255,140,0,0.6);
+  }
+}
+
+  /* ── Cream text phosphor glow ── */
+  @keyframes phosphorGlowCream {
+    0%,100% {
+      text-shadow:
+        0 0  4px #fff,
+        0 0 10px rgba(237,224,192,1),
+        0 0 24px rgba(237,224,192,0.9),
+        0 0 50px rgba(237,224,192,0.7),
+        0 0 90px rgba(200,185,150,0.45),
+        0 0 140px rgba(180,165,120,0.25),
+        3px  3px 0 rgba(10,30,18,0.7),
+        6px  6px 0 rgba(0,0,0,0.2);
+    }
+    50% {
+      text-shadow:
+        0 0  6px #fff,
+        0 0 14px rgba(237,224,192,1),
+        0 0 34px rgba(237,224,192,1),
+        0 0 65px rgba(237,224,192,0.8),
+        0 0 110px rgba(200,185,150,0.6),
+        0 0 170px rgba(180,165,120,0.35),
+        3px  3px 0 rgba(10,30,18,0.7),
+        6px  6px 0 rgba(0,0,0,0.2);
+    }
+  }
+
+  /* ── B&W → colour desaturation fade on load ── */
+  @keyframes colourReveal {
+    0%   { filter: grayscale(1) brightness(0.85) contrast(1.1); }
+    60%  { filter: grayscale(1) brightness(0.85) contrast(1.1); }
+    100% { filter: grayscale(0) brightness(1)    contrast(1);   }
+  }
+  .hero-bw-reveal {
+    animation: colourReveal 2.4s ease-out forwards;
+  }
+
+  @keyframes spanFlickerGlow {
+    0%,100% { opacity:1; }
+    92%     { opacity:1; }
+    93%     { opacity:0.55; }
+    94%     { opacity:1; }
+    97%     { opacity:0.7; }
+    98%     { opacity:1; }
+  }
 `;
 
 /* ═══════════════════════════════════════════════════
-   RETRO BACKGROUND
+   CRT OVERLAY  (sits above everything in the hero)
+═══════════════════════════════════════════════════ */
+function CRTOverlay() {
+  return (
+    <div style={{
+      position: "absolute", inset: 0,
+      pointerEvents: "none", zIndex: 20,
+      borderRadius: "inherit",
+      overflow: "hidden",
+    }}>
+
+      {/* ① Scanlines — thin repeating horizontal stripes */}
+      <div style={{
+        position: "absolute", inset: 0,
+        backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.22) 2px, rgba(0,0,0,0.22) 3px)",
+        backgroundSize: "100% 3px",
+        animation: "scanDrift 0.18s linear infinite",
+        mixBlendMode: "multiply",
+      }} />
+
+      {/* ② Rolling scan bar — a single bright semi-transparent band scrolling top→bottom */}
+      <div style={{
+        position: "absolute", left: 0, right: 0,
+        height: "8%",
+        background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.025) 40%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.025) 60%, transparent)",
+        animation: "rollBar 7s linear infinite",
+        top: "-8%",
+      }} />
+
+      {/* ③ Wavy SVG displacement filter — subtle horizontal warp */}
+      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:1 }}
+           preserveAspectRatio="none">
+        <defs>
+          <filter id="crt-warp" x="-2%" y="-2%" width="104%" height="104%"
+                  color-interpolation-filters="linearRGB">
+            {/* Turbulence drives a very gentle feTurbulence-based warp */}
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.0025 0.11"
+              numOctaves="2"
+              seed="3"
+              result="noise"
+            >
+              <animate attributeName="baseFrequency"
+                values="0.0025 0.11; 0.003 0.115; 0.002 0.108; 0.0025 0.11"
+                dur="4s" repeatCount="indefinite"/>
+              <animate attributeName="seed"
+                values="3;5;2;4;3" dur="9s" repeatCount="indefinite"/>
+            </feTurbulence>
+            <feDisplacementMap
+              in="SourceGraphic" in2="noise"
+              scale="7"
+              xChannelSelector="R" yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+        {/* Apply the warp filter to a full-size transparent rect so it displaces content behind */}
+        <rect width="100%" height="100%" fill="transparent" filter="url(#crt-warp)"/>
+      </svg>
+
+      {/* ④ Static noise burst — random flicker of grain */}
+      <svg style={{
+        position: "absolute", inset: "-10%",
+        width: "120%", height: "120%",
+        animation: "staticBurst 5s steps(1) infinite",
+        opacity: 0,
+      }}>
+        <filter id="crt-static">
+          <feTurbulence type="turbulence" baseFrequency="0.85" numOctaves="1" stitchTiles="stitch"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 0.9   0 0 0 0 0.85   0 0 0 0 0.7   0 0 0 0.55 0"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#crt-static)"/>
+      </svg>
+
+      {/* ⑤ CRT corner vignette — dark edges, curved inward */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "radial-gradient(ellipse at 50% 50%, transparent 58%, rgba(0,0,0,0.55) 100%)",
+      }} />
+
+      {/* ⑥ Subtle green phosphor tint */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "radial-gradient(ellipse at 50% 40%, rgba(20,80,30,0.06) 0%, transparent 70%)",
+      }} />
+
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   RETRO BACKGROUND  (unchanged from original)
 ═══════════════════════════════════════════════════ */
 function RetroBackground() {
   return (
@@ -294,7 +485,7 @@ function RetroBackground() {
 }
 
 /* ═══════════════════════════════════════════════════
-   ANIMATED TITLE
+   ANIMATED TITLE  — with phosphor glow
 ═══════════════════════════════════════════════════ */
 function AnimatedTitle() {
   const [go, setGo] = useState(false);
@@ -305,29 +496,59 @@ function AnimatedTitle() {
       <h1 style={{
         fontFamily:"'Etna', sans-serif",
         fontSize:"clamp(3.5rem, 12vw, 8rem)",
-        lineHeight:0.95, letterSpacing:"2px",
+        lineHeight:0.95, letterSpacing:"4px",
         display:"inline-flex", margin:0, position:"relative",
         opacity: go ? 1 : 0,
         animation: go ? "titleIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s both" : "none",
-      }}>
-        {/* TECH */}
+        /* Slight chromatic aberration on the whole title */
         
+      }}>
 
-        {/* NOT — yellow, slow analog flicker loop */}
+        {/* TECH — yellow with phosphor glow + flicker */}
         <span style={{
           color:"var(--yellow)",
-          textShadow:"3px 3px 0 rgba(140,48,20,0.5), 5px 5px 0 rgba(0,0,0,0.15)",
-          animation: go ? "spanFlicker 6s ease-in-out 2s infinite" : "none",
+          animation: go
+            ? "phosphorGlow 2.8s ease-in-out 1.2s infinite, spanFlickerGlow 6s ease-in-out 2s infinite"
+            : "none",
         }}>TECH</span>
 
-        {/* SAV */}
+        {/* NOTSAV — cream with phosphor glow */}
         <span style={{
           color:"var(--cream)",
-          textShadow:"3px 3px 0 rgba(10,30,18,0.7), 5px 5px 0 rgba(0,0,0,0.15)",
+          animation: go
+            ? "phosphorGlowCream 3.2s ease-in-out 1.5s infinite"
+            : "none",
         }}>NOTSAV</span>
       </h1>
 
-      {/* Coral scratch underline draws in after title lands */}
+      {/*
+        Inline SVG filter for RGB channel split (chromatic aberration).
+        Applied via filter:"url(#rgb-split)" on the h1.
+        Only active in supporting browsers — degrades silently.
+      */}
+      <svg width="0" height="0" style={{ position:"absolute" }}>
+        <defs>
+          <filter id="rgb-split" x="-5%" y="-5%" width="110%" height="110%"
+                  color-interpolation-filters="sRGB">
+            {/* Red channel: shift left */}
+            <feOffset in="SourceGraphic" dx="-1.5" dy="0" result="r-shift"/>
+            <feColorMatrix in="r-shift" type="matrix"
+              values="1 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 0.5 0" result="r-only"/>
+            {/* Blue channel: shift right */}
+            <feOffset in="SourceGraphic" dx="1.5" dy="0" result="b-shift"/>
+            <feColorMatrix in="b-shift" type="matrix"
+              values="0 0 0 0 0   0 0 0 0 0   0 0 1 0 0   0 0 0 0.5 0" result="b-only"/>
+            {/* Merge: red + original + blue */}
+            <feMerge>
+              <feMergeNode in="r-only"/>
+              <feMergeNode in="SourceGraphic"/>
+              <feMergeNode in="b-only"/>
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+
+      {/* Coral scratch underline */}
       <span style={{
         position:"absolute", bottom:"-12px", left:0, right:0,
         height:"4px", background:"var(--coral)", borderRadius:"2px",
@@ -335,6 +556,8 @@ function AnimatedTitle() {
         animation: go ? "scratchIn 0.8s cubic-bezier(0.22,1,0.36,1) 1.1s both" : "none",
         transformOrigin:"left",
         transform:"scaleX(0)",
+        /* Underline also glows */
+        boxShadow: "0 0 8px rgba(216,90,48,0.7), 0 0 20px rgba(216,90,48,0.35)",
       }}/>
     </div>
   );
@@ -345,12 +568,25 @@ function AnimatedTitle() {
 ═══════════════════════════════════════════════════ */
 function Hero() {
   return (
-    <section className="hero" style={{ position:"relative", overflow:"hidden" }}>
+    <section
+      className="hero hero-bw-reveal"
+      style={{
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
       <style>{STYLES}</style>
+
+      {/* Original retro decorative background */}
       <RetroBackground />
 
+      {/* ← NEW: CRT overlay on top of everything */}
+      <CRTOverlay />
+
+      {/* Page content — sits above RetroBackground (z:1) but BELOW CRTOverlay (z:20) */}
       <div style={{ position:"relative", zIndex:10, display:"flex", flexDirection:"column", alignItems:"center" }}>
-        {/* existing floating code snippets */}
+
+        {/* Floating code snippets — unchanged */}
         <div className="code-float cf1">
           function ID[] {"{"}<br/>
           &nbsp;&nbsp;... /)<br/>
