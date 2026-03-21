@@ -1,7 +1,8 @@
 function Registration() {
+  const isTemplateAvailable = false;
   return (
     <section className="reg-section" id="register">
-      
+
       <div className="reveal" style={{ textAlign: "center", marginBottom: 0 }}>
         <p className="section-label">&gt; Register Now</p>
         <h2 className="section-title">Join the Hackathon</h2>
@@ -28,7 +29,7 @@ function Registration() {
         </div>
 
         {/* RIGHT CARD */}
-        <div className="reg-card reveal">
+        <div className="reg-card reveal" >
           <h3>Prizes & Perks</h3>
 
           <div className="fee-big">₹60,000+</div>
@@ -40,6 +41,37 @@ function Registration() {
             <li>Networking with IEEE & industry professionals</li>
             <li>Swag kits and goodies</li>
           </ul>
+        </div>
+
+        
+
+        <div className={`reg-card reveal ${!isTemplateAvailable ? "disabled-card" : ""}`}>
+          <h3>Submission Guidelines</h3>
+
+          <ul className="reg-list">
+            <li>Follow the official presentation template</li>
+            <li>Include problem statement, solution & impact</li>
+            <li>Demo must be functional or well-simulated</li>
+            <li>Maximum presentation time: 8–10 minutes</li>
+            <li>Code and documentation must be submitted</li>
+            <li>Follow the judging criteria given for each problem domain</li>
+          </ul>
+
+          {!isTemplateAvailable && (
+            <p className="template-msg">Template to be shared soon!</p>
+          )}
+
+          <a
+            href={isTemplateAvailable ? "https://example.com/template.pdf" : "#"}
+            className={`reg-btn ${!isTemplateAvailable ? "disabled-btn" : ""}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              if (!isTemplateAvailable) e.preventDefault();
+            }}
+          >
+            Download Template ↓
+          </a>
         </div>
 
       </div>
