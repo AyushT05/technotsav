@@ -496,7 +496,7 @@ function Timeline() {
       {/* Section header */}
       <div className="tl-header reveal" style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
         <p className="section-label">&gt; Event Schedule</p>
-        <h2 className="section-title">April 15–16, 2025</h2>
+        <h2 className="section-title">April 15–16, 2026</h2>
       </div>
 
       {/* Timeline body */}

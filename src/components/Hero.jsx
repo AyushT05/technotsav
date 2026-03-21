@@ -467,7 +467,7 @@ function RetroBackground() {
           fontSize:"0.7rem", letterSpacing:"4px", color:"#F5EFD8",
           lineHeight:"26px",
         }}>
-          {Array(4).fill("HACK · BUILD · SHIP · 24 HOURS · NATIONAL LEVEL · IEEE VVCE · TECHNOTSAV 2025").join("          ")}
+          {Array(4).fill("HACK · BUILD · SHIP · 24 HOURS · NATIONAL LEVEL · IEEE VVCE · TECHNOTSAV 2026").join("          ")}
         </div>
       </div>
 
@@ -618,7 +618,7 @@ function Hero() {
         </p>
 
         <div className="hero-date-badge" style={{ animation:"badgePulse 2.8s ease-in-out 1.8s infinite" }}>
-          15TH — 16TH APRIL 2025
+          15TH — 16TH APRIL 2026
         </div>
 
         <div className="hero-cta-row">
