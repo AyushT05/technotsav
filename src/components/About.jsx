@@ -1,6 +1,10 @@
 function About() {
   return (
-    <section className="section" id="about">
+    <section className="section about-section" id="about">
+
+      {/* SAME background stripes as timeline */}
+      <div className="tl-bg-stripes"></div>
+
       <div className="about-grid">
         
         <div className="about-text reveal">

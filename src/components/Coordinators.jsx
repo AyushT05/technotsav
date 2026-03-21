@@ -86,8 +86,11 @@ function Coordinators() {
     }
   ];
 
-  return (
+   return (
     <section className="coord-section" id="contact">
+
+      {/* SAME background stripes */}
+      <div className="tl-bg-stripes"></div>
 
       <div style={{ textAlign: "center" }} className="reveal">
         <p className="section-label">&gt; Get in Touch</p>
@@ -99,15 +102,12 @@ function Coordinators() {
       <div className="coord-grid">
         {studentCoordinators.map((c, index) => (
           <div key={index} className="coord-card reveal">
-
             <div className="coord-avatar">
               <img src={c.img} alt={c.name} />
             </div>
-
             <div className="coord-role">{c.role}</div>
             <div className="coord-name">{c.name}</div>
             <div className="coord-phone">{c.phone}</div>
-
           </div>
         ))}
       </div>
@@ -117,15 +117,11 @@ function Coordinators() {
       <div className="coord-grid">
         {facultyCoordinators.map((c, index) => (
           <div key={index} className="coord-card reveal">
-
             <div className="coord-avatar">
               <img src={c.img} alt={c.name} />
             </div>
-
-
             <div className="coord-name">{c.name}</div>
             <div className="coord-phone">{c.phone}</div>
-
           </div>
         ))}
       </div>

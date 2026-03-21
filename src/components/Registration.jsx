@@ -43,7 +43,7 @@ function Registration() {
           </ul>
         </div>
 
-        
+
 
         <div className={`reg-card reveal ${!isTemplateAvailable ? "disabled-card" : ""}`}>
           <h3>Submission Guidelines</h3>
@@ -58,7 +58,9 @@ function Registration() {
           </ul>
 
           {!isTemplateAvailable && (
-            <p className="template-msg">Template to be shared soon!</p>
+            <p className="template-msg" style={{ textAlign: "center" }}>
+              Template to be shared soon!
+            </p>
           )}
 
           <a

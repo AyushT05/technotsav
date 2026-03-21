@@ -121,12 +121,22 @@ nav {
 }
 
 .mobile-menu {
-  display: none;
+  position: fixed;              /* 🔥 KEY FIX */
+  top: 53px;                    /* height of your navbar */
+  left: 0;
+  right: 0;
+
+  display: flex;
   flex-direction: column;
-  background: var(--dark-green);
+
+  background: rgba(26, 58, 42, 0.75); /* same as nav */
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px); /* Safari */
   padding: 20px 5%;
   gap: 16px;
   border-bottom: 3px solid var(--yellow);
+
+  z-index: 999;                 /* above everything */
 }
 
 .mobile-menu a {
@@ -417,6 +427,17 @@ nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+.about-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* make sure content stays above stripes */
+.about-section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .stat-card {
@@ -857,6 +878,17 @@ nav {
   font-weight: 600;
 }
 
+.coord-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* keep content above stripes */
+.coord-section > * {
+  position: relative;
+  z-index: 2;
+}
+
 
 
 /* FOOTER */
@@ -1155,31 +1187,29 @@ footer {
 
 @media (max-width: 768px) {
 
-  /* Stack everything nicely */
   .footer {
     padding: 40px 5% 24px;
   }
 
-  /* LOGOS → stack vertically */
   .footer-logos {
-    flex-direction: column;
-    gap: 20px;
+    display: flex;
+    flex-direction: row;              /* ✅ keep row */
+    justify-content: space-evenly;    /* ✅ better spacing */
+    align-items: center;
+    gap: 12px;
     margin-bottom: 20px;
   }
 
-  /* Resize logos */
   .footer-logo-img {
-    height: 60px !important;
+    height: 50px !important;
   }
 
-  /* Info text */
   .footer-info {
     font-size: 0.8rem;
     line-height: 1.5;
     padding: 0 10px;
   }
 
-  /* Instagram button */
   .footer-insta {
     margin-top: 14px;
     font-size: 0.85rem;
@@ -1248,6 +1278,18 @@ footer {
   }
 }
 
+@media(max-width:480px) {
+  .coord-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .coord-grid > :last-child:nth-child(2n + 1) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 260px;
+  }
+}
+
 .disabled-card {
   filter: grayscale(1);
   opacity: 0.75;
@@ -1255,7 +1297,7 @@ footer {
 }
 
 .disabled-card::after {
-  content: "COMING SOON";
+  
   position: absolute;
   top: 12px;
   right: 12px;
