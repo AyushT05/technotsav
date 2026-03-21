@@ -853,7 +853,8 @@ backdrop-filter: blur(12px);
 .coord-avatar img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 🔥 no distortion */
+  object-fit: cover;
+  object-position: top center; /* 🔥 THIS FIXES FACE CUT */
 }
 
 .coord-role {
@@ -887,6 +888,79 @@ backdrop-filter: blur(12px);
 .coord-section > * {
   position: relative;
   z-index: 2;
+}
+
+.cert-generator-card {
+  grid-column: span 3;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.cert-left {
+  flex: 1;
+}
+
+.cert-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.cert-input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.cert-preview {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cert-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.cert-preview {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  transition: all 0.4s ease;
+}
+
+/* BEFORE generation */
+.cert-preview.bw {
+  filter: grayscale(100%) brightness(0.85);
+  opacity: 0.8;
+}
+
+/* AFTER generation */
+.cert-preview.color {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.cert-wrapper:hover .cert-preview {
+  opacity: 0.7;
+}
+
+.download-overlay {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  pointer-events: none;
 }
 
 
@@ -1324,3 +1398,238 @@ footer {
   color: #7a7a7a;
   font-style: italic;
 }
+
+/* ================= MOBILE FIX FOR CERTIFICATE GENERATOR ================= */
+@media (max-width: 768px) {
+
+  /* STACK ALL CARDS */
+  .reg-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
+  /* FIX CERT GENERATOR FULL WIDTH */
+  .cert-generator-card {
+    grid-column: span 1 !important;
+    flex-direction: column !important;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  /* STACK LEFT + RIGHT */
+  .cert-left,
+  .cert-right {
+    width: 100%;
+  }
+
+  /* INPUT FIX */
+  .cert-input {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  /* BUTTON FULL WIDTH */
+  .reg-btn {
+    width: 100%;
+    font-size: 14px;
+    padding: 14px;
+  }
+
+  /* IMAGE FIX */
+  .cert-preview {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* WRAPPER CENTER */
+  .cert-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* TEXT ADJUSTMENTS */
+  .reg-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .reg-list li {
+    font-size: 0.85rem;
+  }
+
+  /* SPACING FIX */
+  .reg-card {
+    padding: 20px;
+  }
+}
+
+/* ================= TERMINAL INPUT STYLE ================= */
+
+.terminal-input-block {
+  margin-top: 20px;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.terminal-line {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.term-prefix {
+  color: #1DBFA3;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  min-width: 90px;
+}
+
+/* ================= TERMINAL INPUT FINAL FIX ================= */
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #00ff46;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  flex: 1;
+
+  border-bottom: 1px solid rgba(0,255,70,0.3);
+  padding: 6px 4px;
+
+  caret-color: #00ff46; /* real moving cursor */
+}
+
+/* CLEAN focus — no glow, no box */
+.terminal-input:focus {
+  outline: none;
+  box-shadow: none;
+  border-bottom: 1px solid #00ff46;
+}
+
+/* remove browser default blue highlight (important) */
+.terminal-input:focus-visible {
+  outline: none;
+}
+
+/* placeholder */
+.terminal-input::placeholder {
+  color: rgba(0,255,70,0.25);
+}
+
+/* focus glow */
+
+.terminal-hint {
+  font-family: 'Share Tech Mono', monospace;
+  color: rgba(0,255,70,0.5);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+/* WRAPPER */
+.terminal-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  min-height: 44px; /* 🔥 mobile tap target */
+}
+
+/* DISPLAYED TEXT */
+.terminal-text {
+  white-space: pre;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* FAKE CURSOR */
+.fake-cursor {
+  display: inline-block;
+  width: 10px;
+  margin-left: 2px;
+  color: #00ff46;
+  animation: blink 1s step-end infinite;
+}
+
+/* HIDDEN REAL INPUT */
+.terminal-input-hidden {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: text;
+  z-index: 5;
+}
+
+/* ================= TERMINAL INPUT BLACK PANEL ================= */
+
+.terminal-input-block {
+  background: #050805; /* deep black */
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-top: 20px;
+
+  font-family: 'Share Tech Mono', monospace;
+
+  border: 1px solid rgba(0,255,70,0.25);
+
+  box-shadow:
+    inset 0 0 40px rgba(0,255,70,0.05),
+    0 0 20px rgba(0,255,70,0.08);
+
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-input-block::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.3) 2px,
+    rgba(0,0,0,0.3) 4px
+  );
+
+  pointer-events: none;
+}
+
+.terminal-input-block * {
+  position: relative;
+  z-index: 2;
+}
+
+.terminal-hint {
+  color: #00ff46;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.term-prefix {
+  color: #1DBFA3;
+}
+
+.terminal-text {
+  color: #00ff46;
+}
+
+.fake-cursor {
+  color: #00ff46;
+}
+
+.terminal-input-block:hover {
+  box-shadow:
+    inset 0 0 40px rgba(0,255,70,0.08),
+    0 0 30px rgba(0,255,70,0.2);
+}
+
+.terminal-text,
+.fake-cursor {
+  pointer-events: none; /* 🔥 THIS IS KEY */
+}
+

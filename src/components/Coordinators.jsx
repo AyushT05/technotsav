@@ -71,7 +71,7 @@ function Coordinators() {
     },
     {
       img: KruthikaImg,
-      name: "Prof. Kruthika S G",
+      name: "Dr. Kruthika S G",
       phone: "Assistant Professor, VVCE CSE(AI&ML) Dept.",
     },
     {
