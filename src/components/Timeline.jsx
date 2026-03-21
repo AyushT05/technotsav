@@ -307,14 +307,17 @@ const TIMELINE_STYLES = `
 `;
 
 const ACCENTS = [
-  "var(--yellow)",
-  "var(--teal)",
-  "var(--coral)",
-  "var(--pink)",
-  "var(--yellow)",
-  "var(--teal)",
+  "var(--yellow)",   // 0
+  "var(--teal)",     // 1
+  "var(--coral)",    // 2
+  "var(--pink)",     // 3
+  "var(--yellow)",   // 4
+  "var(--teal)",     // 5
+  "var(--coral)",    // 6 ← Day 2 starts
+  "var(--pink)",     // 7
+  "var(--yellow)",   // 8
 ];
-const DAY_LABELS = ["DAY 01", "DAY 01", "DAY 01", "DAY 02", "DAY 02", "DAY 02"];
+//const DAY_LABELS = ["DAY 01", "DAY 01", "DAY 01", "DAY 01", "DAY 01", "DAY 01", "DAY 02", "DAY 02", "DAY 02"];
 
 function parseTime(raw) {
   const parts = raw.split("·").map(s => s.trim());
@@ -356,13 +359,15 @@ function TimelineCard({ event, index, side }) {
 function TimeTag({ event, index, align }) {
   const accent = ACCENTS[index];
   const clock = parseTime(event.time);
+  const day = event.time.split("·")[0].toUpperCase();
+
   return (
     <div className={`tl-time-col ${align === "right" ? "push-right" : "push-left"}`}>
       <div className="tl-time-tag">
         <span className="tl-day-pill" style={{
           background: accent === "var(--yellow)" ? "var(--dark-green)" : accent,
         }}>
-          {DAY_LABELS[index]}
+          {day}
         </span>
         <span className="tl-clock">{clock}</span>
         <div className="tl-dots-row"><i /><i /><i /></div>
