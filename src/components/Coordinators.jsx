@@ -39,12 +39,12 @@ function Coordinators() {
       name: "Abhilash S",
       phone: "+91 96068 38375"
     },
-    {
+   /* {
       img: HarshaImg,
       role: "Treasurer",
       name: "Harsha M",
       phone: "+91 91085 50891"
-    },
+    },*/
 
   ];
 
