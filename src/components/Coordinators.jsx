@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import DishanImg from "../assets/dishanImg.jpg";
 import KeerthanImg from "../assets/KeerthanImg.jpeg";
 import AbhilashImg from "../assets/AbhilashImg.jpeg";
@@ -13,6 +15,17 @@ import RachanaImg from "../assets/RachanaImg.jpeg";
 import InduImg from "../assets/InduImg.jpeg";
 
 function Coordinators() {
+  const [copied, setCopied] = useState("");
+
+  const handleCopy = (phone) => {
+    navigator.clipboard.writeText(phone);
+    setCopied("Phone number copied to clipboard");
+
+    setTimeout(() => {
+      setCopied("");
+    }, 2000);
+  };
+
   const studentCoordinators = [
     {
       img: DishanImg,
@@ -24,8 +37,7 @@ function Coordinators() {
       img: DhanushImg,
       role: "Vice President",
       name: "Dhanush",
-      phone: "+91 63628 28422"
-
+      phone: "+91 63628 28422",
     },
     {
       img: KeerthanImg,
@@ -37,15 +49,16 @@ function Coordinators() {
       img: AbhilashImg,
       role: "Social Media Lead",
       name: "Abhilash S",
-      phone: "+91 96068 38375"
+      phone: "+91 96068 38375",
     },
-   /* {
+    /*
+    {
       img: HarshaImg,
       role: "Treasurer",
       name: "Harsha M",
       phone: "+91 91085 50891"
-    },*/
-
+    },
+    */
   ];
 
   const facultyCoordinators = [
@@ -83,13 +96,11 @@ function Coordinators() {
       img: InduImg,
       name: "Prof. Indu J",
       phone: "Assistant Professor, VVCE CSE(AI&ML) Dept.",
-    }
+    },
   ];
 
-   return (
+  return (
     <section className="coord-section" id="contact">
-
-      {/* SAME background stripes */}
       <div className="tl-bg-stripes"></div>
 
       <div style={{ textAlign: "center" }} className="reveal">
@@ -97,17 +108,29 @@ function Coordinators() {
         <h2 className="section-title">Coordinators</h2>
       </div>
 
+      {/* COPY MESSAGE */}
+      {copied && <div className="copy-message">{copied}</div>}
+
       {/* STUDENT COORDINATORS */}
       <h3 className="coord-subtitle">Student Coordinators</h3>
       <div className="coord-grid">
         {studentCoordinators.map((c, index) => (
-          <div key={index} className="coord-card reveal">
+          <div
+            key={index}
+            className="coord-card reveal"
+            onClick={() => handleCopy(c.phone)}
+            style={{ cursor: "pointer" }}
+            title="Click to copy phone number"
+          >
             <div className="coord-avatar">
               <img src={c.img} alt={c.name} />
             </div>
             <div className="coord-role">{c.role}</div>
             <div className="coord-name">{c.name}</div>
-            <div className="coord-phone">{c.phone}</div>
+
+            <div className="coord-phone">
+              {c.phone}
+            </div>
           </div>
         ))}
       </div>
@@ -125,7 +148,6 @@ function Coordinators() {
           </div>
         ))}
       </div>
-
     </section>
   );
 }

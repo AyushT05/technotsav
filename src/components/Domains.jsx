@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // ─── DATA STRUCTURE ────────────────────────────────────────────────────────────
-// Each problem has: id, title, difficulty, sections[]
+// Each problem has: id, title, sections[]
 // Section types: "text" | "text+table" | "table"
 // Each section: { num, label, type, content?, table?: { headers[], rows[][] } }
 
@@ -10,7 +10,6 @@ const problemStatements = {
     {
       id: "FT-001",
       title: "AI-Powered Regulatory Compliance Monitoring",
-      difficulty: "Medium",
       sections: [
         {
           num: "1",
@@ -23,8 +22,10 @@ const problemStatements = {
           num: "2",
           label: "EXPLANATION",
           type: "text+table",
-          content:
-            "Regulatory compliance monitoring involves two interlinked challenges: regulatory intelligence (understanding what rules apply and how they change) and transaction surveillance (checking whether each transaction adheres to those rules). An AI system must bridge both using NLP for rule extraction and ML classifiers for transaction screening.\n\nThe system should use NLP/LLM techniques to parse regulatory text and extract enforceable rules as structured data. A rules engine then evaluates incoming transactions against the extracted rules, scores violation probability, and routes high-risk cases to a compliance officer dashboard. The system must handle regulatory updates incrementally — without a full pipeline restart.",
+          contentBefore:
+            "Regulatory compliance monitoring involves two interlinked challenges: regulatory intelligence (understanding what rules apply and how they change) and transaction surveillance (checking whether each transaction adheres to those rules). An AI system must bridge both using NLP for rule extraction and ML classifiers for transaction screening.",
+          contentAfter:
+            "The system should use NLP/LLM techniques to parse regulatory text and extract enforceable rules as structured data. A rules engine then evaluates incoming transactions against the extracted rules, scores violation probability, and routes high-risk cases to a compliance officer dashboard. The system must handle regulatory updates incrementally — without a full pipeline restart.",
           table: {
             headers: ["Regulation", "Domain", "Key Requirement"],
             rows: [
@@ -35,27 +36,11 @@ const problemStatements = {
             ],
           },
         },
-        {
-          num: "3",
-          label: "JUDGING_CRITERIA",
-          type: "table",
-          table: {
-            headers: ["#", "Criterion", "Description", "Wt."],
-            rows: [
-              ["1", "Rule extraction accuracy",      "NLP precision/recall on enforceable rules",        "20%"],
-              ["2", "Real-time tx flagging",         "Correct violation rate, low false-positives",      "25%"],
-              ["3", "Audit report quality",          "Structured, traceable to regulatory clauses",      "20%"],
-              ["4", "Regulatory update handling",    "Adapts to new/amended rule without retraining",    "20%"],
-              ["5", "Explainability",                "Each flag cites specific rule + evidence trail",   "15%"],
-            ],
-          },
-        },
       ],
     },
 {
   "id": "FT-002",
   "title": "Liquidity Risk Detection in Banking Systems",
-  "difficulty": "Medium",
   "sections": [
     {
       "num": "1",
@@ -67,7 +52,8 @@ const problemStatements = {
       "num": "2",
       "label": "EXPLANATION",
       "type": "text+table",
-      "content": "Liquidity risk manifests across multiple time horizons and is driven by both internal cash flow patterns and external market conditions. A robust detection system must model all three risk dimensions simultaneously. The AI model should use time-series forecasting (LSTM, Transformer, or Prophet) on historical cash flow data, enriched with macroeconomic signals (interest rates, credit spreads, central bank liquidity ops). A stress-testing module must simulate idiosyncratic shocks (sudden deposit outflow) and systemic shocks (market-wide liquidity freeze) to quantify survival horizon — the number of days the bank can operate before breaching regulatory minimums.",
+      "contentBefore": "Liquidity risk manifests across multiple time horizons and is driven by both internal cash flow patterns and external market conditions. A robust detection system must model all three risk dimensions simultaneously:",
+      "contentAfter": "The AI model should use time-series forecasting (LSTM, Transformer, or Prophet) on historical cash flow data, enriched with macroeconomic signals (interest rates, credit spreads, central bank liquidity ops). A stress-testing module must simulate idiosyncratic shocks (sudden deposit outflow) and systemic shocks (market-wide liquidity freeze) to quantify survival horizon — the number of days the bank can operate before breaching regulatory minimums.",
       "table": {
         "headers": ["Risk dimension", "Time horizon", "Key indicators", "Regulatory metric"],
         "rows": [
@@ -77,27 +63,11 @@ const problemStatements = {
         ]
       }
     },
-    {
-      "num": "3",
-      "label": "JUDGING_CRITERIA",
-      "type": "table",
-      "table": {
-        "headers": ["#", "Criterion", "Description", "Weight"],
-        "rows": [
-          ["1", "Forecast accuracy", "MAE/RMSE of 30-day liquidity shortfall predictions vs held-out data", "25%"],
-          ["2", "Early warning precision", "Lead time of LCR/NSFR breach warnings; false alarm rate minimized", "25%"],
-          ["3", "Stress scenario coverage", "Idiosyncratic and systemic shocks both modeled with survival horizon output", "20%"],
-          ["4", "Regulatory metric alignment", "Correct LCR and NSFR computation from input cash flow data", "15%"],
-          ["5", "Dashboard usability", "Risk officers can drill into contributing factors for each alert", "15%"]
-        ]
-      }
-    }
   ]
 },
  {
   "id": "FT-003",
   "title": "AI System for Detecting Market Manipulation in High Frequency Trading",
-  "difficulty": "Hard",
   "sections": [
     {
       "num": "1",
@@ -109,7 +79,8 @@ const problemStatements = {
       "num": "2",
       "label": "EXPLANATION",
       "type": "text+table",
-      "content": "HFT manipulation exploits the speed asymmetry between algorithmic traders and market surveillance systems. Each manipulation technique leaves a distinct statistical fingerprint in the order book that an AI system must learn to recognize under extreme time pressure (microsecond to millisecond resolution). The core technical challenge is the extreme class imbalance — manipulative events are rare relative to legitimate HFT activity — combined with the need for sub-second latency. Models must achieve high precision (to avoid drowning compliance teams in false alerts) while maintaining recall sufficient for regulatory defensibility. Graph neural networks or attention-based sequence models operating on order book snapshots are among the leading approaches. The evidence package must include reconstructed order sequences, timestamp chains, and a manipulation probability score with confidence intervals.",
+      "contentBefore": "HFT manipulation exploits the speed asymmetry between algorithmic traders and market surveillance systems. Each manipulation technique leaves a distinct statistical fingerprint in the order book that an AI system must learn to recognize under extreme time pressure (microsecond to millisecond resolution):",
+      "contentAfter": "The core technical challenge is the extreme class imbalance — manipulative events are rare relative to legitimate HFT activity — combined with the need for sub-second latency. Models must achieve high precision (to avoid drowning compliance teams in false alerts) while maintaining recall sufficient for regulatory defensibility. Graph neural networks or attention-based sequence models operating on order book snapshots are among the leading approaches. The evidence package must include reconstructed order sequences, timestamp chains, and a manipulation probability score with confidence intervals.",
       "table": {
         "headers": ["Manipulation type", "Mechanism", "Order book signature"],
         "rows": [
@@ -136,182 +107,188 @@ const problemStatements = {
         ]
       }
     },
-    {
-      "num": "3",
-      "label": "JUDGING_CRITERIA",
-      "type": "table",
-      "table": {
-        "headers": ["#", "Criterion", "Description", "Weight"],
-        "rows": [
-          [
-            "1",
-            "Detection accuracy",
-            "F1 score on held-out labeled manipulation events across all four types",
-            "25%"
-          ],
-          [
-            "2",
-            "Latency performance",
-            "Detection pipeline completes within required sub-second time budget",
-            "20%"
-          ],
-          [
-            "3",
-            "Manipulation classification",
-            "System distinguishes between spoofing, layering, stuffing, and ignition",
-            "20%"
-          ],
-          [
-            "4",
-            "Evidence package quality",
-            "Regulatory-grade output with order sequence, timestamps, and confidence score",
-            "20%"
-          ],
-          [
-            "5",
-            "Class imbalance handling",
-            "Precision-recall tradeoff explicitly addressed; no naive majority-class bias",
-            "15%"
-          ]
-        ]
-      }
-    }
   ]
 },
+    {
+      id: "FT-004",
+      title: "Intelligent Collateral Optimization System",
+      sections: [
+        {
+          num: "1",
+          label: "PROBLEM_STATEMENT",
+          type: "text",
+          content:
+            "In the derivatives and secured lending markets, financial institutions must pledge assets (collateral) to mitigate counterparty credit risk. However, fragmented data, varying haircuts, and complex eligibility criteria across multiple clearinghouses (CCPs) often lead to \"collateral drag\" — where high-quality liquid assets (HQLA) are trapped or inefficiently allocated. Participants must build an AI-driven collateral optimization system that analyzes real-time inventory, predicts margin requirements, and executes an automated \"cheapest-to-deliver\" (CTD) strategy. The system must minimize funding costs while ensuring 100% compliance with evolving regulatory mandates like UMRE (Uncleared Margin Rules).",
+        },
+        {
+          num: "2",
+          label: "EXPLANATION",
+          type: "text+table",
+          contentBefore:
+            "Collateral optimization requires balancing asset liquidity against the cost of carry while navigating a web of shifting constraints. An effective AI system must move beyond static rule-based allocation to dynamic, predictive routing based on three core optimization pillars:",
+          contentAfter:
+            "The AI model should leverage Linear Programming (LP) or Reinforcement Learning (RL) to solve the multi-constraint optimization problem in real-time. By processing historical volatility and settlement data, the system should predict \"margin calls\" before they occur, allowing for proactive asset substitution. Crucially, the engine must handle \"wrong-way risk\" (where the collateral value is positively correlated with the counterparty's probability of default) by adjusting risk weights dynamically.",
+          table: {
+            headers: ["Optimization Pillar", "Focus Area", "Key Decision Variable", "Efficiency Goal"],
+            rows: [
+              ["Inventory Rationalization", "Asset Eligibility",    "Haircut levels & Concentration limits",       "Minimize \"Liquidity Trap\" scenarios"],
+              ["Margin Forecasting",        "Predictive Analytics", "Initial Margin (IM) & Variation Margin (VM)", "Reduce buffer capital requirements"],
+              ["Cost Minimization",         "Cheapest-to-Deliver",  "Opportunity cost of HQLA vs. Cash",          "Maximize Return on Assets (RoA)"],
+            ],
+          },
+        },
+      ],
+    },
+    {
+      id: "FT-005",
+      title: "AI System for Predicting Counterparty Default Risk",
+      sections: [
+        {
+          num: "1",
+          label: "PROBLEM_STATEMENT",
+          type: "text",
+          content:
+            "Counterparty Credit Risk (CCR) is the risk that a partner in a financial transaction — such as a derivative, repo, or foreign exchange contract — will default before the final settlement of the transaction's cash flows. Unlike standard lending, CCR is dynamic; the exposure fluctuates with market volatility, often leading to \"Wrong-Way Risk\" where the probability of a counterparty's default increases as the exposure to them rises. Participants must build an AI-powered predictive system that integrates multi-source data (financial statements, market sentiment, and macroeconomic indicators) to estimate the Probability of Default (PD) in real-time. The system must provide early warning signals and calculate Credit Valuation Adjustments (CVA) to price this risk into active trades.",
+        },
+        {
+          num: "2",
+          label: "EXPLANATION",
+          type: "text+table",
+          contentBefore:
+            "Predicting counterparty default requires a shift from static, lagging credit scores to a forward-looking, high-frequency risk assessment. An effective AI solution must continuously evaluate the \"health\" of a counterparty across various data dimensions to stay ahead of sudden market shifts:",
+          contentAfter:
+            "The system should employ Ensemble Learning (XGBoost/Random Forest) for high-accuracy classification and Graph Neural Networks (GNN) to model the interconnectedness of counterparties, identifying \"hidden\" contagion paths. The output must include an explainability layer (SHAP or LIME) so that risk managers can justify why a counterparty's risk level was upgraded or downgraded. Furthermore, the engine must calculate Potential Future Exposure (PFE) to ensure the institution maintains sufficient capital buffers during periods of high volatility.",
+          table: {
+            headers: ["Risk Category", "Data Input", "Predictive Output", "Regulatory / Risk Impact"],
+            rows: [
+              ["Financial Solvency", "Balance sheets, Cash flow, Debt-to-Equity ratios",          "Distance-to-Default (DtD)",          "Capital Adequacy (Basel III/IV)"],
+              ["Market Sentiment",   "Credit Default Swap (CDS) spreads, Stock volatility",        "Market-implied PD",                  "Real-time CVA pricing"],
+              ["Macroeconomic",      "GDP growth, Interest rate hikes, Geopolitical news",         "Systematic Risk Score",              "Stress Testing & Scenarios"],
+              ["Network Risk",       "Interbank exposure, Contagion mapping",                      "Systemic Spillover probability",     "Concentration Limit breach alerts"],
+            ],
+          },
+        },
+      ],
+    },
   ],
   d2: [
     {
-      id: "IOT-001",
-      title: "Smart Grid Load Balancing Network",
-      difficulty: "Hard",
+      id: "AIOT-001",
+      title: "Crop Disease Early Warning via Leaf Image + IoT Sensor Fusion",
       sections: [
         {
           num: "1",
           label: "PROBLEM_STATEMENT",
           type: "text",
           content:
-            "Develop a distributed IoT network of smart meters and edge devices that predicts and balances electricity demand in real time across a residential neighbourhood. The system should autonomously negotiate energy sharing between prosumers, integrate renewable sources, and survive partial network failures without central coordination.",
+            "India loses an estimated Rs 90,000 crore annually to plant diseases, yet most smallholder farmers lack access to agronomists or diagnostic labs. Participants must build a field-deployable IoT system that combines a low-cost camera module with environmental sensors to provide autonomous, on-device crop disease detection. A pre-trained TensorFlow Lite leaf disease classifier (PlantVillage dataset) runs directly on the ESP32-CAM. When disease probability exceeds a set threshold AND environmental conditions (humidity, soil moisture) are favorable for fungal spread, the system sends the farmer a photo with diagnosis via Telegram — no internet beyond SMS required in the field.",
         },
         {
           num: "2",
           label: "EXPLANATION",
           type: "text+table",
-          content:
-            "Traditional grid management is centralised and reactive. A distributed peer-to-peer energy mesh requires consensus protocols, real-time demand forecasting at the edge, and secure value-exchange between nodes. Each device must operate with limited compute and bandwidth while maintaining grid stability.",
+          contentBefore:
+            "The core innovation is sensor fusion for alert confidence: a visual detection alone may trigger false alarms from lighting or leaf damage. By gating alerts on both vision and environmental conditions, the system dramatically reduces false positives. The system pipeline operates across three stages:",
+          contentAfter:
+            "The PlantVillage dataset (54,306 images, 38 disease classes) is publicly available and pre-trained MobileNetV2 TFLite models are downloadable, making this feasible within a hackathon timeline. Teams are encouraged to quantize the model to INT8 to fit within the ESP32-CAM's constrained memory footprint.",
           table: {
-            headers: ["Layer", "Role", "Protocol"],
+            headers: ["Stage", "Component", "Function", "Output"],
             rows: [
-              ["Smart meter",  "Sense + report consumption",  "MQTT / Zigbee"],
-              ["Edge node",    "Local forecasting + control", "ONNX runtime"],
-              ["P2P mesh",     "Energy trading negotiation",  "libp2p / CoAP"],
-              ["Cloud sync",   "Aggregate analytics + audit", "REST / gRPC"],
+              ["Capture",      "ESP32-CAM",       "Periodic leaf image capture (every 30 min or on trigger)", "JPEG frame buffer"],
+              ["Inference",    "TFLite model",    "On-device classification: Healthy / Early Blight / Late Blight / Rust", "Disease class + confidence score"],
+              ["Fusion gate",  "DHT22 + Soil",    "Alert only if confidence > threshold AND humidity > 70% or soil wet", "Boolean: send alert?"],
+              ["Notification", "Telegram Bot",    "Push image + disease label + recommended action to farmer's phone", "Farmer receives diagnosis"],
             ],
           },
-        },
-        {
-          num: "3",
-          label: "JUDGING_CRITERIA",
-          type: "table",
-          table: {
-            headers: ["#", "Criterion", "Description", "Wt."],
-            rows: [
-              ["1", "Forecast accuracy",    "MAE on 15-min ahead demand prediction",          "25%"],
-              ["2", "Fault tolerance",      "Grid stability with 30% of nodes offline",       "25%"],
-              ["3", "Renewable integration","% of renewable energy successfully absorbed",     "20%"],
-              ["4", "Latency",              "P2P negotiation round-trip under 500ms",          "20%"],
-              ["5", "Energy saved",         "kWh reduction vs baseline centralised dispatch",  "10%"],
-            ],
-          },
+          deliverables: [
+            "Live disease classification demo on real or printed leaf images",
+            "Sensor-fused alert logic — show a case where high humidity triggers vs suppresses alert",
+            "Telegram notification demo with photo + diagnosis message",
+            "Model accuracy report with confusion matrix (min 75% accuracy on test set)",
+          ],
         },
       ],
     },
     {
-      id: "IOT-002",
-      title: "Predictive Maintenance for Rural Water Systems",
-      difficulty: "Medium",
+      id: "AIOT-002",
+      title: "Edge AI Sound Classifier for Industrial Safety (TinyML)",
       sections: [
         {
           num: "1",
           label: "PROBLEM_STATEMENT",
           type: "text",
           content:
-            "Engineer a low-power sensor network that monitors pipeline pressure, flow rates, and water quality across rural water distribution infrastructure. The system must operate on solar harvesting, transmit over LoRaWAN or NB-IoT, and predict pipe failures 48 hours in advance using on-device anomaly detection models.",
+            "Industrial accidents caused by undetected auditory signals — emergency sirens, glass breaks, or abnormal machine sounds — result in thousands of preventable injuries annually. Cloud-dependent sound detection introduces unacceptable latency and privacy risks in factory environments. Participants must train a TinyML sound classification model on Edge Impulse and deploy it onto the Arduino Nano 33 BLE Sense's onboard microphone. The deployed model must classify four sound classes in real time with sub-1ms inference latency and trigger safety alerts locally — zero cloud dependency required.",
         },
         {
           num: "2",
           label: "EXPLANATION",
           type: "text+table",
-          content:
-            "Rural water networks suffer from undetected leaks and pipe bursts that can disrupt supply for thousands of people. The key constraints are extreme power budgets (< 50mW per node), low-bandwidth wireless links, and the need for on-device ML inference to reduce backhaul. TinyML models must fit within microcontroller SRAM.",
+          contentBefore:
+            "TinyML (machine learning on microcontrollers) is one of the fastest-growing fields in embedded systems. The Arduino Nano 33 BLE Sense has only 256KB RAM and 1MB Flash — deploying a functional neural network within these constraints requires careful model design, quantization, and feature engineering. The four target sound classes and their industrial relevance are:",
+          contentAfter:
+            "Edge Impulse (free tier) provides a full MLOps pipeline: data collection via the browser, MFCC / MFE audio feature extraction, neural network training, and one-click Arduino library export. The key technical challenge is achieving minimum 80% accuracy across all four classes while keeping the model footprint under 200KB. INT8 quantization typically reduces model size 4x with less than 2% accuracy loss — teams should document this trade-off explicitly.",
           table: {
-            headers: ["Constraint", "Limit", "Approach"],
+            headers: ["Sound class", "Industrial scenario", "Required response"],
             rows: [
-              ["Power budget",   "< 50mW per node",   "Solar + supercapacitor harvesting"],
-              ["Bandwidth",      "< 250 bytes/msg",   "LoRaWAN SF7, compressed payload"],
-              ["Model size",     "< 64 KB SRAM",      "TinyML / ONNX quantised model"],
-              ["Prediction lead","48 hours ahead",    "LSTM anomaly detection on edge"],
+              ["Normal machine hum",  "Baseline operating state — motor, conveyor, HVAC",          "No action — log as normal"],
+              ["Glass break",         "Safety panel shattered, equipment impact, intrusion",         "Immediate alert + buzzer"],
+              ["Emergency siren",     "Fire alarm, evacuation signal, chemical leak warning",        "Alert + relay trigger for evacuation light"],
+              ["Silence / anomaly",   "Machine stopped unexpectedly — possible fault or shutdown",   "Maintenance alert after 10s silence window"],
             ],
           },
-        },
-        {
-          num: "3",
-          label: "JUDGING_CRITERIA",
-          type: "table",
-          table: {
-            headers: ["#", "Criterion", "Description", "Wt."],
-            rows: [
-              ["1", "Prediction accuracy",  "F1-score on 48h-ahead pipe failure detection",   "30%"],
-              ["2", "Power efficiency",     "Average node power draw vs 50mW budget",          "25%"],
-              ["3", "Network reliability",  "Uptime % across simulated poor-coverage zones",   "20%"],
-              ["4", "Deployment ease",      "Time to deploy a new node from unboxing",         "15%"],
-              ["5", "Data quality",         "% of sensor readings passing validity checks",    "10%"],
-            ],
-          },
+          deliverables: [
+            "4-class real-time inference demo — live audio classification on device",
+            "Confusion matrix with minimum 80% overall accuracy across all classes",
+            "Latency measurement — inference time in ms printed to serial monitor",
+            "Edge vs cloud trade-off analysis: latency, privacy, and cost comparison",
+          ],
         },
       ],
     },
     {
-      id: "IOT-003",
-      title: "Ambient Assisted Living Platform",
-      difficulty: "Hard",
+      id: "AIOT-003",
+      title: "Blind Navigation Assistant with Obstacle + Object Announcement",
       sections: [
         {
           num: "1",
           label: "PROBLEM_STATEMENT",
           type: "text",
           content:
-            "Design a non-intrusive smart home system for elderly residents that detects falls, monitors medication adherence, and identifies behavioural deviations indicative of cognitive decline. Privacy is paramount — all processing must occur locally, with only anonymised alerts sent to caregivers.",
+            "India has 15 million visually impaired people — the largest blind population in the world — yet affordable, intelligent assistive navigation technology remains largely inaccessible. Participants must build a wearable chest-mounted navigation assistant that provides real-time, fully offline guidance. The system uses ultrasonic sensors for close-range obstacle avoidance (haptic + audio beep) and a Pi Camera running YOLOv5-nano for object detection, announcing detected items (door, stairs, person, chair, vehicle) through a bone-conduction earpiece via text-to-speech. No cloud connectivity required — all inference runs on the Raspberry Pi 4 at the edge.",
         },
         {
           num: "2",
           label: "EXPLANATION",
-          type: "text+table",
-          content:
-            "Ambient assisted living requires passive sensing (no cameras in bedrooms, no wearables) combined with on-device AI. Sensor fusion across motion, door, and appliance sensors can model daily routines. Deviations from a learned baseline trigger alerts. All inference must run on a local hub with no cloud dependency.",
+          type: "text+table+table",
+          contentBefore:
+            "The system operates across two complementary sensing modalities that work at different ranges and serve different safety needs. Getting both to work simultaneously in real time — without audio conflicts or processing bottlenecks — is the core engineering challenge:",
+          contentMiddle:
+            "YOLOv5-nano is the smallest variant in the YOLO family — only 1.9M parameters, ~4MB model size — making it feasible on a Raspberry Pi 4 at 10–15 FPS. The audio pipeline must manage announcement priority: obstacle warnings always interrupt object announcements, and repeated detections of the same object within 3 seconds are suppressed to avoid audio fatigue. The bone-conduction earpiece is critical — it leaves the ear canal open so the user retains ambient sound awareness, unlike standard earphones.",
+          contentAfter:
+            "",
           table: {
-            headers: ["Sensor", "Signal", "Event Detected"],
+            headers: ["Modality", "Range", "Output", "Latency target"],
             rows: [
-              ["PIR motion",      "Room occupancy pattern",  "Fall / inactivity anomaly"],
-              ["Door contact",    "Entry/exit timestamps",   "Routine deviation"],
-              ["Smart plug",      "Appliance power draw",    "Missed meal / medication"],
-              ["Bed pressure",    "Sleep duration + restlessness", "Sleep quality decline"],
+              ["Obstacle avoidance (HC-SR04 Ultrasonic)", "0 – 200 cm", "Haptic buzz + proximity beep frequency", "< 50ms"],
+              ["Object announcement (Pi Camera v2)",      "0.6 – 6 m",  "TTS audio: 'Person ahead', 'Stairs detected'", "< 500ms"],
             ],
           },
-        },
-        {
-          num: "3",
-          label: "JUDGING_CRITERIA",
-          type: "table",
-          table: {
-            headers: ["#", "Criterion", "Description", "Wt."],
+          table2: {
+            headers: ["Component", "Role", "Key technical constraint"],
             rows: [
-              ["1", "Fall detection",       "Sensitivity / specificity on test scenarios",     "30%"],
-              ["2", "Privacy compliance",   "Zero PII leaves local hub — verified by audit",   "25%"],
-              ["3", "Routine modelling",    "Baseline learning time + deviation accuracy",     "20%"],
-              ["4", "Alert quality",        "False alert rate over 30-day simulation",         "15%"],
-              ["5", "Caregiver UX",         "Alert clarity and response time in user test",    "10%"],
+              ["YOLOv5-nano",            "Real-time object detection and class labeling",    "Must run at minimum 5 FPS on RPi 4 without GPU"],
+              ["gTTS / pyttsx3",         "Convert detection labels to spoken audio output",  "Offline TTS (pyttsx3) preferred; gTTS fallback for Wi-Fi scenarios"],
+              ["HC-SR04",                "Continuous distance polling for near-field obstacle warning", "Runs on separate GPIO thread to avoid blocking vision pipeline"],
+              ["Bone-conduction earpiece","Audio output keeping ambient hearing intact",     "3.5mm AUX or Bluetooth; latency < 100ms for BT variant"],
             ],
           },
+          deliverables: [
+            "Live navigation demo through an obstacle course (minimum 5 obstacles)",
+            "Object announcement demo — 5 distinct classes correctly identified and spoken",
+            "Latency + false-positive measurement report for both sensing modalities",
+            "Accessibility impact report — deployment scenario and cost analysis for Indian users",
+          ],
         },
       ],
     },
@@ -320,7 +297,6 @@ const problemStatements = {
     {
   "id": "CS-001",
   "title": "Cookie Security Flags",
-  "difficulty": "Medium",
   "sections": [
     {
       "num": "1",
@@ -332,7 +308,8 @@ const problemStatements = {
       "num": "2",
       "label": "EXPLANATION",
       "type": "text+table",
-      "content": "Cookie security flags control how browsers handle cookies during transmission and script execution. Three critical flags govern this behavior. A common attack chain: an attacker injects a script via XSS (possible because HttpOnly is absent), steals the session cookie, and replays it from a different machine. If SameSite is also missing, Cross-Site Request Forgery (CSRF) allows state-changing actions (fund transfers, password changes) without the victim's direct interaction.",
+      "contentBefore": "Cookie security flags control how browsers handle cookies during transmission and script execution. Three critical flags govern this behavior:",
+      "contentAfter": "A common attack chain: an attacker injects a script via XSS (possible because HttpOnly is absent), steals the session cookie, and replays it from a different machine. If SameSite is also missing, Cross-Site Request Forgery (CSRF) allows state-changing actions (fund transfers, password changes) without the victim's direct interaction.",
       "table": {
         "headers": ["Flag", "Purpose", "Missing impact"],
         "rows": [
@@ -354,52 +331,11 @@ const problemStatements = {
         ]
       }
     },
-    {
-      "num": "3",
-      "label": "JUDGING_CRITERIA",
-      "type": "table",
-      "table": {
-        "headers": ["#", "Criterion", "Description", "Weight"],
-        "rows": [
-          [
-            "1",
-            "Exploit demonstration",
-            "Working PoC showing session theft or CSRF via missing flags",
-            "25%"
-          ],
-          [
-            "2",
-            "Attack chain clarity",
-            "Clear narrative from missing flag → attack vector → impact",
-            "20%"
-          ],
-          [
-            "3",
-            "Remediation quality",
-            "Correct flag combination applied; explains why each flag is needed",
-            "20%"
-          ],
-          [
-            "4",
-            "Code-level evidence",
-            "Before/after HTTP response headers shown in the submission",
-            "20%"
-          ],
-          [
-            "5",
-            "Impact articulation",
-            "CVSS-aligned severity reasoning and business risk described",
-            "15%"
-          ]
-        ]
-      }
-    }
   ]
 },
     {
   "id": "CS-002",
   "title": "Broken Object Level Authorization (BOLA)",
-  "difficulty": "Medium",
   "sections": [
     {
       "num": "1",
@@ -411,7 +347,8 @@ const problemStatements = {
       "num": "2",
       "label": "EXPLANATION",
       "type": "text+table",
-      "content": "BOLA is ranked #1 in the OWASP API Security Top 10 because it is pervasive and often simple to exploit. The root cause is trusting the client-supplied object ID without verifying ownership on the server side. A typical attack flow: an authenticated attacker observes that GET /api/invoices/500 returns their invoice. By incrementing the ID to 501, 502, etc., the attacker retrieves other users' invoices — no privilege escalation required, just enumeration. The same pattern applies to PUT/DELETE requests, allowing modification or deletion of other users' records. The fix is not client-side validation. The server must compare the object's owner field against the authenticated user's identity on every request. Randomized UUIDs slow enumeration but do not fix the underlying authorization gap.",
+      "contentBefore": "BOLA is ranked #1 in the OWASP API Security Top 10 because it is pervasive and often simple to exploit. The root cause is trusting the client-supplied object ID without verifying ownership on the server side.\n\nTypical attack flow: an authenticated attacker observes that GET /api/invoices/500 returns their invoice. By incrementing the ID to 501, 502, etc., the attacker retrieves other users' invoices — no privilege escalation required, just enumeration. The same pattern applies to PUT/DELETE requests, allowing modification or deletion of other users' records.",
+      "contentAfter": "The fix is not client-side validation. The server must compare the object's owner field against the authenticated user's identity on every request. Randomized UUIDs slow enumeration but do not fix the underlying authorization gap.",
       "table": {
         "headers": ["Scenario", "Request", "Vulnerable response"],
         "rows": [
@@ -433,52 +370,107 @@ const problemStatements = {
         ]
       }
     },
-    {
-      "num": "3",
-      "label": "JUDGING_CRITERIA",
-      "type": "table",
-      "table": {
-        "headers": ["#", "Criterion", "Description", "Weight"],
-        "rows": [
-          [
-            "1",
-            "Unauthorized access proof",
-            "Demonstrated User A accessing User B's object via ID manipulation",
-            "25%"
-          ],
-          [
-            "2",
-            "Scope of exposure",
-            "Enumerated how many endpoints/records are affected in the target app",
-            "20%"
-          ],
-          [
-            "3",
-            "Authorization logic fix",
-            "Server-side ownership check implemented and verified in code",
-            "25%"
-          ],
-          [
-            "4",
-            "OWASP API alignment",
-            "Correctly mapped to OWASP API Security Top 10 — API1:2023",
-            "15%"
-          ],
-          [
-            "5",
-            "Automated test coverage",
-            "Regression test or scan script that confirms the fix holds",
-            "15%"
-          ]
-        ]
-      }
-    }
   ]
 },
+  {
+    "id": "CS-003",
+    "title": "CSRF Mitigation in Modern JSON-based APIs",
+    "sections": [
+      {
+        "num": "1",
+        "label": "PROBLEM_STATEMENT",
+        "type": "text",
+        "content": "Cross-Site Request Forgery (CSRF) is increasingly relevant in modern JSON-based APIs used by SPAs and mobile applications. Many developers assume JSON and token-based authentication provide inherent protection, but misconfigurations in CORS, content-type validation, and browser credential handling still expose APIs to CSRF attacks. Participants must design and implement a defense engine that validates request authenticity, enforces strict content-type policies, applies secure CORS configurations, and integrates cryptographic CSRF tokens and SameSite cookie protections."
+      },
+      {
+        "num": "2",
+        "label": "EXPLANATION",
+        "type": "text+table",
+        "contentBefore": "Mitigating CSRF in JSON APIs requires a defense-in-depth approach beyond simple origin checks. The system must distinguish legitimate cross-origin requests from malicious ones and enforce strict validation mechanisms across headers, cookies, and request patterns.",
+        "contentAfter": "The system should also include heuristic analysis and behavioral fingerprinting to detect anomalies, enforce nonce-based validation for state-changing requests, and maintain audit logs for rejected requests to support incident response and forensic analysis.",
+        "table": {
+          "headers": ["Attack Vector", "Vulnerability Mechanism", "Mitigation Strategy", "Security Impact"],
+          "rows": [
+            [
+              "Simple Request Bypass",
+              "Exploiting text/plain or form-encoded payloads parsed as JSON",
+              "Strict Content-Type enforcement & schema validation",
+              "Prevents unintended parsing of forged requests"
+            ],
+            [
+              "CORS Misconfiguration",
+              "Overly permissive Access-Control-Allow-Origin",
+              "Dynamic whitelist validation & credential-restricted origins",
+              "Stops unauthorized domains from accessing data"
+            ],
+            [
+              "Token Hijacking",
+              "Predictable or long-lived session tokens",
+              "Double Submit Cookies or synchronizer token pattern",
+              "Ensures request authenticity per session"
+            ],
+            [
+              "Ambient Auth Abuse",
+              "Browser-managed cookies auto-attached to requests",
+              "Custom headers + SameSite=Strict cookies",
+              "Decouples browser state from API execution"
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "CS-004",
+    "title": "JWT Algorithm Confusion and Key Manipulation",
+    "sections": [
+      {
+        "num": "1",
+        "label": "PROBLEM_STATEMENT",
+        "type": "text",
+        "content": "JSON Web Tokens (JWTs) are widely used for stateless authentication, but improper validation can lead to critical vulnerabilities such as algorithm confusion and key manipulation. Attackers exploit weak verification logic by modifying the alg field, forcing downgrades or bypassing signature validation entirely. Participants must implement a hardened JWT validation engine that enforces strict algorithm pinning, validates key integrity, prevents header injection attacks, and detects misuse such as 'none' algorithm exploits in real time."
+      },
+      {
+        "num": "2",
+        "label": "EXPLANATION",
+        "type": "text+table",
+        "contentBefore": "Algorithm confusion arises when the server trusts client-supplied JWT headers without enforcing expected cryptographic constraints. This allows attackers to manipulate verification logic and bypass authentication controls.",
+        "contentAfter": "A robust solution requires a positive security model with strict algorithm allowlists, trusted key sources, and validation of critical claims like exp, nbf, and iss. Detailed logging of failed validations is essential to detect brute-force and manipulation attempts.",
+        "table": {
+          "headers": ["Attack Vector", "Vulnerability Mechanism", "Mitigation Strategy", "Security Impact"],
+          "rows": [
+            [
+              "Algorithm Downgrade",
+              "Switching RS256 to HS256 using public key as secret",
+              "Explicit algorithm pinning in verification logic",
+              "Prevents signature forgery via key confusion"
+            ],
+            [
+              "\"None\" Algorithm Exploit",
+              "Setting alg to 'none' to bypass signature checks",
+              "Strict rejection of unsigned tokens",
+              "Ensures all tokens are cryptographically verified"
+            ],
+            [
+              "KID/JWK Injection",
+              "Manipulating key ID to reference malicious key स्रोत",
+              "Key ID whitelisting and header sanitization",
+              "Prevents directory traversal and malicious key loading"
+            ],
+            [
+              "Key Confusion",
+              "Using incorrect key types or lengths",
+              "Pre-validation of key type and size",
+              "Avoids verification bypass due to weak/mismatched keys"
+            ]
+          ]
+        }
+      }
+    ]
+  },
 {
-  "id": "CS-003",
+  "id": "CS-005",
   "title": "SSRF with Redirects",
-  "difficulty": "Hard",
   "sections": [
     {
       "num": "1",
@@ -490,7 +482,8 @@ const problemStatements = {
       "num": "2",
       "label": "EXPLANATION",
       "type": "text+table",
-      "content": "A basic SSRF defense blocklists internal IP ranges (10.x, 192.168.x, 169.254.x). An attacker defeats this by supplying a URL on an allowlisted external domain that immediately 302-redirects to the internal target. The server validates the original URL (passes the check), then follows the redirect to the internal address — completely bypassing the allowlist. In cloud environments this is critical: 169.254.169.254 (AWS IMDSv1, GCP, Azure) serves IAM credentials, account IDs, and SSH keys with no authentication. A single successful SSRF request can exfiltrate credentials granting full cloud account access. A robust fix combines: (1) an allowlist of permitted destinations with final-URL re-verification after any redirects, (2) blocking all link-local and private IP ranges post-resolution, and (3) deploying AWS IMDSv2 (token-gated) to limit metadata endpoint exposure even if SSRF succeeds.",
+      "contentBefore": "A basic SSRF defense blocklists internal IP ranges (10.x, 192.168.x, 169.254.x). An attacker defeats this by supplying a URL on an allowlisted external domain that immediately 302-redirects to the internal target. The server validates the original URL (passes the check), then follows the redirect to the internal address — completely bypassing the allowlist.\n\nIn cloud environments this is critical: 169.254.169.254 (AWS IMDSv1, GCP, Azure) serves IAM credentials, account IDs, and SSH keys with no authentication. A single successful SSRF request can exfiltrate credentials granting full cloud account access.",
+      "contentAfter": "A robust fix combines: (1) an allowlist of permitted destinations with final-URL re-verification after any redirects, (2) blocking all link-local and private IP ranges post-resolution, and (3) deploying AWS IMDSv2 (token-gated) to limit metadata endpoint exposure even if SSRF succeeds.",
       "table": {
         "headers": ["Bypass technique", "Mechanism", "Mitigated by"],
         "rows": [
@@ -517,90 +510,43 @@ const problemStatements = {
         ]
       }
     },
-    {
-      "num": "3",
-      "label": "JUDGING_CRITERIA",
-      "type": "table",
-      "table": {
-        "headers": ["#", "Criterion", "Description", "Weight"],
-        "rows": [
-          [
-            "1",
-            "Redirect chain exploit",
-            "Demonstrated bypass of URL allowlist via open redirect to internal IP",
-            "25%"
-          ],
-          [
-            "2",
-            "Internal asset discovery",
-            "Successfully reached metadata endpoint or internal service",
-            "20%"
-          ],
-          [
-            "3",
-            "Bypass sophistication",
-            "Use of DNS rebinding, 302 chains, or protocol switching techniques",
-            "20%"
-          ],
-          [
-            "4",
-            "Defense depth",
-            "Allowlist + redirect-resolution fix; not just blocklist patching",
-            "20%"
-          ],
-          [
-            "5",
-            "Cloud metadata awareness",
-            "Demonstrates credential theft risk via 169.254.x IMDSv1 endpoint",
-            "15%"
-          ]
-        ]
-      }
-    }
   ]
 },
   ],
   d4: [
     {
       id: "SD-001",
-      title: "Carbon-Aware Compute Scheduler",
-      difficulty: "Medium",
+      title: "Autonomous Carbon Footprint Intelligence System (ACFIS)",
       sections: [
         {
           num: "1",
           label: "PROBLEM_STATEMENT",
           type: "text",
           content:
-            "Design a workload orchestration layer for cloud and on-premises compute clusters that shifts non-urgent computational tasks (batch ML training, video transcoding, backups) to time windows with the lowest grid carbon intensity. Provide real-time dashboards showing embodied carbon savings and integrate with WattTime or Electricity Maps APIs.",
+            "The ACFIS is a next-generation framework designed to automate the lifecycle of carbon accounting within industrial ecosystems. As global regulations tighten, the challenge lies in moving from \"estimated\" footprints to \"autonomous\" footprints — data that is captured, verified, and reported without human bias. Participants must analyze the integration of AI-driven forecasting and Blockchain-backed auditing to ensure that carbon credits are representative of true environmental savings. The goal is to design a system that not only monitors emissions but proactively suggests \"Carbon-Neutral\" operational shifts based on real-time sensor intelligence.",
         },
         {
           num: "2",
           label: "EXPLANATION",
           type: "text+table",
-          content:
-            "Data centres account for ~1% of global electricity consumption. Carbon intensity of the grid varies by up to 10× across hours and regions depending on renewable generation. Temporal and spatial shifting of flexible workloads can dramatically reduce Scope 2 emissions without impacting SLAs, if the scheduler has accurate carbon forecasts.",
+          contentBefore:
+            "The intelligence of ACFIS is derived from its ability to correlate industrial output with environmental cost. Unlike traditional reporting, which is often retrospective and prone to error, an autonomous system uses a Continuous Verification Loop. This ensures that every unit of energy consumed and every kilogram of CO₂ emitted is mathematically linked to a specific production event.\n\nThe table below outlines the primary Intelligence Modules required to maintain a high-integrity carbon monitoring system:",
           table: {
-            headers: ["Workload Type", "Flexibility", "Shift Window"],
+            headers: ["Intelligence Module", "Core Function", "Sustainability Impact"],
             rows: [
-              ["Batch ML training",    "High",   "Up to 24 hours"],
-              ["Video transcoding",    "High",   "Up to 12 hours"],
-              ["Database backups",     "Medium", "Up to 6 hours"],
-              ["Real-time inference",  "None",   "Must run immediately"],
+              ["Real-Time Emission Telemetry",    "Automated ingestion of NOₓ, CO₂, and CH₄ data from IoT edge devices.",                          "Eliminates manual reporting lag and \"greenwashing\" data gaps."],
+              ["Geo-Fenced Asset Tracking",       "Linking emission data to specific geographic \"Green Zones\" or high-impact areas.",              "Enables localized environmental policy enforcement and precision auditing."],
+              ["Predictive Decarbonization",      "AI models that forecast peak emission periods based on production schedules.",                    "Allows for proactive energy shifting to off-peak, renewable-heavy hours."],
+              ["Immutable Ledger Integration",    "Cryptographic anchoring of footprint data onto a distributed ledger (Blockchain).",              "Provides a \"Single Source of Truth\" for international carbon credit trading."],
             ],
           },
-        },
-        {
-          num: "3",
-          label: "JUDGING_CRITERIA",
-          type: "table",
-          table: {
-            headers: ["#", "Criterion", "Description", "Wt."],
-            rows: [
-              ["1", "Carbon reduction",   "gCO₂eq saved vs baseline unaware scheduler",      "30%"],
-              ["2", "SLA compliance",     "% of jobs completing within deadline",             "25%"],
-              ["3", "Forecast accuracy",  "MAE on carbon intensity prediction",              "20%"],
-              ["4", "API integration",    "WattTime / ElectricityMaps live data working",    "15%"],
-              ["5", "Dashboard quality",  "Real-time carbon savings visualisation",          "10%"],
+          strategy: {
+            title: "Core Implementation Strategy",
+            intro: "To achieve a truly sustainable architecture, ACFIS must prioritize:",
+            points: [
+              { label: "Interoperability", text: "The system must communicate across different industrial protocols (e.g., Modbus, OPC-UA) to gather a holistic view of the carbon chain." },
+              { label: "Data Integrity", text: "Ensuring that the \"Intelligence\" is based on raw, untampered data through the use of decentralized Oracles." },
+              { label: "Scalability", text: "The framework should be able to scale from a single manufacturing plant to a global supply chain without losing granularity in the carbon footprint calculations." },
             ],
           },
         },
@@ -608,44 +554,37 @@ const problemStatements = {
     },
     {
       id: "SD-002",
-      title: "Precision Agriculture Water Intelligence",
-      difficulty: "Medium",
+      title: "AI System for Predicting Environmental Disasters from Industrial Waste (ASP-EDIW)",
       sections: [
         {
           num: "1",
           label: "PROBLEM_STATEMENT",
           type: "text",
           content:
-            "Build an AI-powered irrigation decision system that fuses soil moisture sensor data, satellite NDVI imagery, hyperlocal weather forecasts, and crop growth models to deliver field-specific, day-ahead irrigation schedules. The system must reduce water consumption by at least 30% compared to traditional calendar-based methods.",
+            "Industrial waste management is a reactive process, where environmental damage is often only identified after catastrophic leakage or chemical runoff occurs. The ASP-EDIW is a predictive framework designed to transition from post-incident response to pre-emptive disaster prevention. By synthesizing historical discharge data, real-time chemical sensor feeds, and local hydrological patterns, the system aims to forecast high-risk \"disaster windows.\" Participants must analyze the integration of Deep Learning models for anomaly detection and Predictive Modeling to identify the exact thresholds where routine industrial waste disposal escalates into an environmental emergency.",
         },
         {
           num: "2",
           label: "EXPLANATION",
           type: "text+table",
-          content:
-            "Agriculture accounts for 70% of global freshwater withdrawals. Over-irrigation is common due to lack of real-time soil and crop data. A precision system that integrates multiple data streams can optimise irrigation timing and volume per zone, accounting for evapotranspiration, crop stage, and forecast rainfall to avoid unnecessary watering.",
+          contentBefore:
+            "The core challenge in predicting industrial disasters lies in the \"Cascade Effect.\" A single chemical leak might be manageable, but when combined with specific environmental variables — such as heavy rainfall, soil saturation, or rising water tables — it can lead to irreversible ecosystem collapse.\n\nThe system operates by monitoring Predictive Indicators across different industrial and environmental vectors. The table below outlines the primary data categories and their role in identifying a potential disaster before it manifests:",
           table: {
-            headers: ["Data Source", "Resolution", "Contribution"],
+            headers: ["Predictive Indicator", "Data Source", "Disaster Significance"],
             rows: [
-              ["Soil moisture sensors", "Per field zone / hourly",  "Ground truth water content"],
-              ["Satellite NDVI",        "10m / 5-day revisit",      "Crop stress + growth stage"],
-              ["Weather forecast",      "1km / hourly, 7-day",      "ET₀ + rainfall prediction"],
-              ["Crop growth model",     "Variety-specific",         "Water demand curve"],
+              ["Chemical Concentration Spikes",   "Effluent IoT sensors (pH, Heavy Metals, TDS).",                         "Identifies breach of safe operational limits in real-time."],
+              ["Hydrological Correlation",         "Local weather stations and groundwater flow models.",                    "Predicts the speed and direction of toxic plume migration."],
+              ["Structural Integrity Monitoring",  "Acoustic and seismic sensors on waste dams/pipelines.",                 "Detects micro-fractures that precede a catastrophic containment failure."],
+              ["Anomaly Detection (AI)",           "Historical discharge vs. Current output patterns.",                     "Flags \"silent\" leaks or intentional illegal dumping during off-hours."],
             ],
           },
-        },
-        {
-          num: "3",
-          label: "JUDGING_CRITERIA",
-          type: "table",
-          table: {
-            headers: ["#", "Criterion", "Description", "Wt."],
-            rows: [
-              ["1", "Water savings",      "% reduction vs calendar baseline on test plots",  "30%"],
-              ["2", "Yield preservation", "Crop yield vs well-irrigated control group",      "25%"],
-              ["3", "Forecast accuracy",  "MAE on ET₀ and rainfall predictions",            "20%"],
-              ["4", "Sensor fusion",      "Improvement from multi-source vs single source",  "15%"],
-              ["5", "Farmer UX",          "Schedule clarity + mobile app usability score",  "10%"],
+          strategy: {
+            title: "Predictive Implementation Strategy",
+            intro: "To ensure the system provides actionable intelligence, ASP-EDIW must incorporate:",
+            points: [
+              { label: "Threshold-Based Alerting", text: "Dynamic alerting systems that adjust sensitivity based on the proximity of industrial sites to \"High-Sensitivity Zones\" (e.g., residential areas or protected wetlands)." },
+              { label: "Early-Warning Propagation", text: "Automated communication protocols that notify local environmental agencies and downstream communities the moment a \"High-Probability\" disaster state is detected." },
+              { label: "Simulation Loop", text: "A digital-twin environment that constantly runs \"What-If\" scenarios (e.g., \"What happens if a leak occurs during a Level 5 storm?\") to refine the AI's predictive accuracy." },
             ],
           },
         },
@@ -653,44 +592,113 @@ const problemStatements = {
     },
     {
       id: "SD-003",
-      title: "Informal Waste Ecosystem Optimiser",
-      difficulty: "Easy",
+      title: "Self-Optimizing Smart Grid for Renewable Energy Chaos (S-OSG)",
       sections: [
         {
           num: "1",
           label: "PROBLEM_STATEMENT",
           type: "text",
           content:
-            "Create a platform that formalises and optimises the informal waste collection economy in dense urban areas. Connect waste generators, informal collectors (kabadiwalas / waste pickers), and recycling facilities through a marketplace with dynamic pricing, route optimisation, and verified impact reporting for ESG compliance.",
+            "The integration of variable renewable energy (VRE) sources like solar and wind introduces \"Renewable Energy Chaos\" — unpredictable fluctuations in power supply that can destabilize traditional electrical grids. The S-OSG is an autonomous management layer designed to balance this volatility in real-time. Unlike static grids, this system must dynamically redistribute loads, manage battery storage cycles, and predict weather-induced surges to prevent grid frequency collapse. Participants must analyze the Reinforcement Learning (RL) models and Distributed Energy Resource (DER) protocols required to maintain grid equilibrium amidst high-penetration renewable instability.",
         },
         {
           num: "2",
           label: "EXPLANATION",
           type: "text+table",
-          content:
-            "Informal waste collectors process up to 50% of recyclable waste in developing-world cities, yet remain invisible to formal supply chains. A digital platform can improve their income predictability, reduce collection inefficiencies, and generate verified waste diversion data for corporate ESG reporting — bridging the informal and formal economies.",
+          contentBefore:
+            "The fundamental challenge of a renewable-heavy grid is the \"Duck Curve\" and the \"Intermittency Gap.\" Because sun and wind are non-dispatchable, the grid must possess the \"intelligence\" to self-correct when supply suddenly drops or peaks.\n\nThe S-OSG functions as a digital nervous system, treating every household solar panel and industrial battery as a controllable node. The table below illustrates the core Optimization Vectors that the system uses to mitigate energy chaos:",
           table: {
-            headers: ["Stakeholder", "Problem", "Platform Solution"],
+            headers: ["Optimization Vector", "Operational Mechanism", "Grid Stability Impact"],
             rows: [
-              ["Waste generator",    "No visibility on recyclable value",    "Price estimator + pickup scheduling"],
-              ["Waste collector",    "Unpredictable income + inefficient routes", "Route optimisation + demand forecast"],
-              ["Recycling facility", "Inconsistent feedstock supply",        "Aggregated supply commitments"],
-              ["Corporate buyer",    "Unverifiable ESG waste claims",        "Blockchain-anchored impact certificates"],
+              ["Demand-Side Response",         "AI-driven throttling of non-essential industrial loads during supply dips.",                           "Prevents brownouts by \"shaving\" peak demand in milliseconds."],
+              ["Virtual Power Plants (VPP)",   "Aggregating thousands of small-scale residential batteries into a single resource.",                   "Creates a massive \"buffer\" to absorb sudden renewable surges."],
+              ["Frequency Regulation",         "High-speed monitoring of Hz levels with sub-second correction.",                                       "Prevents catastrophic equipment damage caused by power quality swings."],
+              ["Weather-to-Load Forecasting",  "Correlating satellite cloud-cover data with localized energy consumption.",                            "Pre-emptively charges storage before predicted \"Renewable Lulls.\""],
+            ],
+          },
+          strategy: {
+            title: "Self-Optimization Strategy",
+            intro: "To manage a chaotic energy landscape, the S-OSG architecture prioritizes:",
+            points: [
+              { label: "Decentralized Control", text: "Moving away from a central \"Command and Control\" center to edge-computing nodes that can make local balancing decisions if the main network is congested." },
+              { label: "Automated Arbitrage", text: "Using Blockchain-based smart contracts to automatically buy and sell energy between neighbors (P2P trading) to balance local microgrids." },
+              { label: "Resiliency Loops", text: "Implementing \"Black Start\" capabilities where the AI can restart isolated sections of the grid using only local renewable and storage assets." },
             ],
           },
         },
+      ],
+    },
+    {
+      id: "SD-004",
+      title: "Circular Economy Intelligence for Global Waste Supply Chains (CEI-GWSC)",
+      sections: [
         {
-          num: "3",
-          label: "JUDGING_CRITERIA",
-          type: "table",
+          num: "1",
+          label: "PROBLEM_STATEMENT",
+          type: "text",
+          content:
+            "The global transition from a \"take-make-dispose\" linear model to a circular economy is hindered by the fragmentation of waste supply chains across international borders. Current systems lack the end-to-end visibility required to treat waste as a high-value raw material. The CEI-GWSC is an integrated intelligence layer designed to track, certify, and optimize the recovery of materials — such as rare earth metals, polymers, and textiles — at a global scale. Participants must bridge the gap between waste generation and remanufacturing, utilizing Digital Product Passports (DPP) and Reverse Logistics AI to ensure that materials remain in a closed-loop system indefinitely.",
+        },
+        {
+          num: "2",
+          label: "EXPLANATION",
+          type: "text+table",
+          contentBefore:
+            "The intelligence behind a circular supply chain relies on the \"Material Fingerprint.\" For a global chain to function, every stakeholder — from the initial manufacturer to the final recycler — must have access to the material's composition, repair history, and recycling potential.\n\nThe system uses a Circularity Intelligence Matrix to transform discarded products back into industrial feedstocks. The table below outlines the primary mechanisms used to maintain material value across the global lifecycle:",
           table: {
-            headers: ["#", "Criterion", "Description", "Wt."],
+            headers: ["Circularity Driver", "Technical Mechanism", "Supply Chain Impact"],
             rows: [
-              ["1", "Waste diverted",      "kg of recyclables kept from landfill in pilot",   "25%"],
-              ["2", "Collector income",    "% income increase for enrolled collectors",        "25%"],
-              ["3", "Route efficiency",    "km reduction per kg collected vs baseline",       "20%"],
-              ["4", "ESG report quality",  "Audit-readiness of impact certificates",          "20%"],
-              ["5", "Platform adoption",   "# of active users across all stakeholder types",  "10%"],
+              ["Digital Product Passport",   "Blockchain-based ledger recording material origin and toxicity data.",                              "Enables border-crossing \"Waste-to-Resource\" certification."],
+              ["Reverse Logistics AI",        "Automated routing for \"Product-as-a-Service\" and take-back schemes.",                            "Reduces the carbon overhead of returning used goods to factories."],
+              ["Material Composition AI",     "Spectroscopic analysis to identify pure vs. contaminated waste streams.",                           "Increases the purity (and market value) of recycled secondary raw materials."],
+              ["Value-Retention Tracking",    "Real-time monitoring of product \"Utility\" and \"Lifetime\" extension.",                         "Prioritizes Refurbishment and Reuse over energy-intensive recycling."],
+            ],
+          },
+          strategy: {
+            title: "Circular Integration Strategy",
+            intro: "To operationalize global waste intelligence, the CEI-GWSC framework focuses on:",
+            points: [
+              { label: "Cradle-to-Cradle Design", text: "Integrating end-of-life intelligence into the initial CAD/CAM design phase to ensure products are physically \"easy to harvest.\"" },
+              { label: "Decentralized Recovery Hubs", text: "Using AI to identify optimal regional locations for \"Micro-Remanufacturing\" centers, reducing the need for long-distance waste transport." },
+              { label: "Transparency & Ethics", text: "Ensuring that global waste flows do not result in \"waste colonialism\" by using cryptographic proof-of-recovery to verify ethical labor and environmental standards in developing nations." },
+            ],
+          },
+        },
+      ],
+    },
+    {
+      id: "SD-005",
+      title: "Sustainable AI: Energy-Aware Machine Learning Models (S-AIM)",
+      sections: [
+        {
+          num: "1",
+          label: "PROBLEM_STATEMENT",
+          type: "text",
+          content:
+            "As AI models grow exponentially in complexity, their environmental cost — measured in Megawatt-hours (MWh) and CO₂ equivalents — has become a critical barrier to sustainable digital transformation. Traditional machine learning focuses exclusively on maximizing accuracy, often at the expense of massive computational overhead. S-AIM is a framework designed to treat Energy Efficiency as a primary objective rather than a secondary constraint. Participants must move beyond \"Red AI\" (heavy-compute) toward \"Green AI\" by implementing energy-conscious training cycles, optimizing model architectures for low-power inference, and establishing a \"Performance-per-Watt\" benchmark for all intelligent workloads.",
+        },
+        {
+          num: "2",
+          label: "EXPLANATION",
+          type: "text+table",
+          contentBefore:
+            "The sustainability of an AI system is determined by its lifecycle energy footprint, which is split between the Training Phase (one-time high intensity) and the Inference Phase (continuous daily usage). An \"Energy-Aware\" model uses intelligence to identify where marginal gains in accuracy no longer justify the exponential increase in power consumption.\n\nThe system utilizes Efficiency Levers to minimize the carbon intensity of the ML pipeline. The table below outlines the key strategies for balancing model intelligence with environmental responsibility:",
+          table: {
+            headers: ["Efficiency Lever", "Technical Implementation", "Sustainability Benefit"],
+            rows: [
+              ["Model Pruning & Quantization",  "Removing redundant neurons and reducing weight precision (e.g., FP32 to INT8).",                   "Decreases memory footprint and energy used per inference by 30–70%."],
+              ["Knowledge Distillation",         "Training a compact \"Student\" model to mimic a massive \"Teacher\" model.",                       "Retains high accuracy while running on low-power edge hardware."],
+              ["Carbon-Aware Scheduling",        "Automating training to run during hours when the local grid is powered by renewables.",              "Minimizes the CO₂ intensity of the model's development lifecycle."],
+              ["Early-Exit Architectures",       "Allowing the model to stop processing once a high-confidence prediction is reached.",               "Reduces cumulative \"FLOPs\" (Floating Point Operations) during real-time use."],
+            ],
+          },
+          strategy: {
+            title: "Sustainable Implementation Strategy",
+            intro: "To build a truly Green AI ecosystem, the S-AIM framework prioritizes:",
+            points: [
+              { label: "Metric Transparency", text: "Moving from reporting \"Accuracy\" to reporting \"Accuracy-per-kg-CO₂,\" ensuring that the environmental cost of every decimal point of progress is visible." },
+              { label: "Hardware-Software Co-Design", text: "Optimizing algorithms specifically for energy-efficient accelerators like TPUs or specialized NPU (Neural Processing Unit) chips rather than general-purpose GPUs." },
+              { label: "Data Minimalism", text: "Shifting toward \"Small Data\" approaches that require fewer training iterations, reducing the overall \"Compute-Hours\" required to reach a production-ready state." },
             ],
           },
         },
@@ -701,7 +709,7 @@ const problemStatements = {
 
 const domainMeta = {
   d1: { label: "FINTECH",       color: "#1DBFA3", prefix: "FT"  },
-  d2: { label: "IOT",           color: "#F0B429", prefix: "IOT" },
+  d2: { label: "AIOT & ROBOTICS", color: "#F0B429", prefix: "AIOT" },
   d3: { label: "CYBERSECURITY", color: "#E8698A", prefix: "CS"  },
   d4: { label: "SUSTAIN-DEV",   color: "#6B7C2D", prefix: "SD"  },
 };
@@ -732,6 +740,9 @@ function buildAsciiTable(headers, rows) {
 
 // ─── SECTION RENDERER ─────────────────────────────────────────────────────────
 function Section({ section, color }) {
+  const isDoubleTable = section.type === "text+table+table";
+  const isTableSection = section.type === "text+table" || isDoubleTable;
+
   return (
     <div style={styles.sectionBlock}>
       {/* Section header */}
@@ -740,24 +751,78 @@ function Section({ section, color }) {
         <span style={styles.sectionLine} />
       </div>
 
-      {/* Text paragraphs */}
-      {(section.type === "text" || section.type === "text+table") &&
+      {/* Text — plain "text" type */}
+      {section.type === "text" && section.content &&
         section.content.split("\n\n").map((para, i) => (
-          <p key={i} style={styles.sectionText}>
-            {para.trim()}
-          </p>
+          <p key={i} style={styles.sectionText}>{para.trim()}</p>
         ))}
 
-      {/* ASCII table */}
-      {(section.type === "text+table" || section.type === "table") &&
-        section.table && (
-          <pre style={styles.asciiTable}>
-            {buildAsciiTable(section.table.headers, section.table.rows)}
-          </pre>
-        )}
+      {/* Text before first table */}
+      {isTableSection && (section.contentBefore || section.content) &&
+        (section.contentBefore || section.content).split("\n\n").map((para, i) => (
+          <p key={i} style={styles.sectionText}>{para.trim()}</p>
+        ))}
+
+      {/* First (or only) ASCII table */}
+      {isTableSection && section.table && (
+        <pre style={styles.asciiTable}>
+          {buildAsciiTable(section.table.headers, section.table.rows)}
+        </pre>
+      )}
+
+      {/* Text between tables (double-table only) */}
+      {isDoubleTable && section.contentMiddle &&
+        section.contentMiddle.split("\n\n").map((para, i) => (
+          <p key={i} style={styles.sectionText}>{para.trim()}</p>
+        ))}
+
+      {/* Second table (double-table only) */}
+      {isDoubleTable && section.table2 && (
+        <pre style={styles.asciiTable}>
+          {buildAsciiTable(section.table2.headers, section.table2.rows)}
+        </pre>
+      )}
+
+      {/* Text after table(s) */}
+      {isTableSection && section.contentAfter && section.contentAfter.trim() &&
+        section.contentAfter.split("\n\n").map((para, i) => (
+          <p key={i} style={styles.sectionText}>{para.trim()}</p>
+        ))}
+
+      {/* Deliverables */}
+      {section.deliverables && section.deliverables.length > 0 && (
+        <div style={styles.deliverablesBlock}>
+          <div style={{ ...styles.deliverablesLabel, color }}>DELIVERABLES:</div>
+          <ul style={styles.deliverablesList}>
+            {section.deliverables.map((item, i) => (
+              <li key={i} style={styles.deliverableItem}>
+                <span style={{ ...styles.deliverableBullet, color }}>◆</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Strategy block (SD domain) */}
+      {section.strategy && (
+        <div style={styles.strategyBlock}>
+          <div style={{ ...styles.strategyTitle, color }}>{section.strategy.title}</div>
+          <p style={styles.strategyIntro}>{section.strategy.intro}</p>
+          <ol style={styles.strategyList}>
+            {section.strategy.points.map((pt, i) => (
+              <li key={i} style={styles.strategyItem}>
+                <span style={{ ...styles.strategyLabel, color }}>{pt.label}:</span>
+                {" "}{pt.text}
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
     </div>
   );
 }
+
 
 // ─── TERMINAL SCREEN ──────────────────────────────────────────────────────────
 function TerminalScreen({ domainId, onClose }) {
@@ -786,9 +851,6 @@ function TerminalScreen({ domainId, onClose }) {
     }, 180);
     return () => clearInterval(interval);
   }, [domainId]);
-
-  const difficultyColor = (d) =>
-    d === "Hard" ? "#E8698A" : d === "Easy" ? "#1DBFA3" : "#F0B429";
 
   return (
     <div style={styles.overlay}>
@@ -847,15 +909,6 @@ function TerminalScreen({ domainId, onClose }) {
                     </span>
                     <span style={styles.psTitle}>
                       {ps.title}
-                      <span
-                        style={{
-                          ...styles.diffBadge,
-                          color: difficultyColor(ps.difficulty),
-                          borderColor: difficultyColor(ps.difficulty),
-                        }}
-                      >
-                        {ps.difficulty}
-                      </span>
                     </span>
                     <span style={{ ...styles.psArrow, color: meta.color }}>
                       {openId === ps.id ? "▼" : "▶"}
@@ -883,10 +936,6 @@ function TerminalScreen({ domainId, onClose }) {
                         <span style={{ color: "rgba(0,255,70,0.4)" }}> | </span>
                         <span style={{ color: "rgba(0,255,70,0.5)" }}>
                           TRACK: {meta.label}
-                        </span>
-                        <span style={{ color: "rgba(0,255,70,0.4)" }}> | </span>
-                        <span style={{ color: difficultyColor(ps.difficulty) }}>
-                          DIFFICULTY: {ps.difficulty.toUpperCase()}
                         </span>
                       </div>
                     </div>
@@ -926,8 +975,8 @@ function Domains() {
       id: "d2",
       num: "02 ///",
       icon: "📡",
-      name: "Internet of Things",
-      desc: "Connect the physical and digital. Create smart devices, sensor networks, and automation platforms that redefine how we interact with our world.",
+      name: "AIoT & Robotics",
+      desc: "Build intelligent edge systems that fuse AI with physical sensors and actuators. From TinyML to computer vision, create solutions that sense, think, and act in the real world.",
     },
     {
       id: "d3",
@@ -1149,18 +1198,6 @@ const styles = {
     color: "#00ff46",
     letterSpacing: "1px",
     flex: 1,
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    flexWrap: "wrap",
-  },
-  diffBadge: {
-    fontSize: "0.62rem",
-    letterSpacing: "2px",
-    border: "1px solid",
-    padding: "1px 6px",
-    borderRadius: "3px",
-    flexShrink: 0,
   },
   psArrow: {
     fontFamily: "'Share Tech Mono', monospace",
@@ -1237,6 +1274,77 @@ const styles = {
     fontSize: "0.78rem",
     color: "rgba(0,255,70,0.5)",
     letterSpacing: "1px",
+  },
+  deliverablesBlock: {
+    marginTop: "16px",
+    paddingTop: "14px",
+    borderTop: "1px solid rgba(0,255,70,0.12)",
+  },
+  deliverablesLabel: {
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: "0.68rem",
+    letterSpacing: "3px",
+    marginBottom: "10px",
+    textShadow: "0 0 8px currentColor",
+  },
+  deliverablesList: {
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
+  deliverableItem: {
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: "0.78rem",
+    color: "rgba(0,255,70,0.8)",
+    lineHeight: "1.9",
+    letterSpacing: "0.4px",
+    display: "flex",
+    alignItems: "flex-start",
+    gap: "8px",
+    marginBottom: "4px",
+  },
+  deliverableBullet: {
+    flexShrink: 0,
+    fontSize: "0.65rem",
+    marginTop: "3px",
+    textShadow: "0 0 8px currentColor",
+  },
+  strategyBlock: {
+    marginTop: "18px",
+    paddingTop: "14px",
+    borderTop: "1px solid rgba(0,255,70,0.12)",
+  },
+  strategyTitle: {
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: "0.75rem",
+    letterSpacing: "2px",
+    fontWeight: "bold",
+    marginBottom: "8px",
+    textShadow: "0 0 8px currentColor",
+  },
+  strategyIntro: {
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: "0.78rem",
+    color: "rgba(0,255,70,0.8)",
+    lineHeight: "1.8",
+    letterSpacing: "0.4px",
+    marginBottom: "10px",
+  },
+  strategyList: {
+    margin: 0,
+    paddingLeft: "20px",
+  },
+  strategyItem: {
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: "0.77rem",
+    color: "rgba(0,255,70,0.75)",
+    lineHeight: "1.9",
+    letterSpacing: "0.3px",
+    marginBottom: "6px",
+  },
+  strategyLabel: {
+    fontWeight: "bold",
+    textShadow: "0 0 6px currentColor",
   },
 };
 

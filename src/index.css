@@ -1633,3 +1633,46 @@ footer {
   pointer-events: none; /* 🔥 THIS IS KEY */
 }
 
+.copy-message {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+
+  background: rgba(0, 0, 0, 0.85);
+  color: #00ff9f;
+
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+
+  padding: 8px 14px;
+  border-left: 3px solid #00ff9f;
+
+  box-shadow: 0 0 8px rgba(0, 255, 159, 0.3);
+  letter-spacing: 0.5px;
+
+  animation: fadeInOut 2s ease forwards;
+}
+
+/* subtle flicker */
+.copy-message::before {
+  content: "> ";
+  color: #00ff9f;
+}
+
+/* animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
