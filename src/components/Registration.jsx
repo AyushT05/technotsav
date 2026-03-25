@@ -55,12 +55,12 @@ function Registration() {
           <h3>Submission Guidelines</h3>
 
           <ul className="reg-list">
-            <li>Follow the official presentation template</li>
-            <li>Include problem statement, solution & impact</li>
-            <li>Demo must be functional or well-simulated</li>
-            <li>Maximum presentation time: 8–10 minutes</li>
-            <li>Code and documentation must be submitted</li>
-            <li>Follow the judging criteria given for each problem domain</li>
+            <li>Use the official presentation template provided</li>
+            <li>Follow all instructions mentioned in the template</li>
+            <li>Keep slides clear, visually engaging, and avoid excessive text</li>
+            <li>Use the same presentation for the Mentorship Round (15 April, 2:00 PM)</li>
+            <li>Ensure all team members actively participate during the presentation</li>
+            <li>The presentation will be part of final evaluation — prepare accordingly</li>
           </ul>
 
           {!isTemplateAvailable && (
