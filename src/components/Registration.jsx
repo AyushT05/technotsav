@@ -43,7 +43,7 @@ function Registration() {
           <div className="fee-sub">Total prize pool</div>
 
           <ul className="reg-list" style={{ marginTop: "24px" }}>
-            <li>Cash prizes for top 3 teams per domain</li>
+            <li>Cash prizes for top 2 teams per domain</li>
             <li>Certificates for all participants</li>
             <li>Networking with IEEE & industry professionals</li>
             <li>Swag kits and goodies</li>

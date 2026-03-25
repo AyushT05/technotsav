@@ -1,9 +1,10 @@
 function Ticker() {
   const items = [
-    "Registrations Opening Soon!",
-    "₹60,000+ PRIZE POOL",
-    "APRIL 15–16",
-    "VVCE MYSURU",
+    "Registrations Opened!",
+    "Last Date to submit ideas: 7th April",
+    "Results Announcement: 8th April",
+    "Hackathon Starts: APRIL 15–16 2026",
+    "Code your way in!"
   ];
 
   // duplicate for seamless loop (same as your HTML)
