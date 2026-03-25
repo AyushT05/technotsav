@@ -277,6 +277,37 @@ const TIMELINE_STYLES = `
 
   .tl-mobile-time { display: none; }
 
+  /* ── Divider between the two timelines ── */
+  .tl-section-divider {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto 72px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .tl-section-divider::before,
+  .tl-section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: repeating-linear-gradient(
+      to right,
+      rgba(45,94,62,0.25) 0px,
+      rgba(45,94,62,0.25) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+  }
+  .tl-divider-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: rgba(45,94,62,0.4);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
   @media (max-width: 768px) {
     .tl-spine-track { left: 20px; }
     .tl-row { grid-template-columns: 48px 1fr; }
@@ -306,27 +337,32 @@ const TIMELINE_STYLES = `
   }
 `;
 
-const ACCENTS = [
-  "var(--yellow)",   // 0
-  "var(--teal)",     // 1
-  "var(--coral)",    // 2
-  "var(--pink)",     // 3
-  "var(--yellow)",   // 4
-  "var(--teal)",     // 5
-  "var(--coral)",    // 6 ← Day 2 starts
-  "var(--pink)",     // 7
-  "var(--yellow)",   // 8
+const REG_ACCENTS = [
+  "var(--teal)",
+  "var(--coral)",
+  "var(--yellow)",
 ];
-//const DAY_LABELS = ["DAY 01", "DAY 01", "DAY 01", "DAY 01", "DAY 01", "DAY 01", "DAY 02", "DAY 02", "DAY 02"];
+
+const EVENT_ACCENTS = [
+  "var(--yellow)",
+  "var(--teal)",
+  "var(--coral)",
+  "var(--pink)",
+  "var(--yellow)",
+  "var(--teal)",
+  "var(--coral)",
+  "var(--pink)",
+  "var(--yellow)",
+];
 
 function parseTime(raw) {
   const parts = raw.split("·").map(s => s.trim());
   return parts[1] || parts[0];
 }
 
-function TimelineCard({ event, index, side }) {
+function TimelineCard({ event, index, side, accents }) {
   const isRight = side === "right";
-  const accent = ACCENTS[index];
+  const accent = accents[index % accents.length];
   const accentColor = accent === "var(--yellow)" ? "var(--coral)" : accent;
   return (
     <div
@@ -356,10 +392,10 @@ function TimelineCard({ event, index, side }) {
   );
 }
 
-function TimeTag({ event, index, align }) {
-  const accent = ACCENTS[index];
+function TimeTag({ event, index, align, accents }) {
+  const accent = accents[index % accents.length];
   const clock = parseTime(event.time);
-  const day = event.time.split("·")[0].toUpperCase();
+  const day = event.time.split("·")[0].trim();
 
   return (
     <div className={`tl-time-col ${align === "right" ? "push-right" : "push-left"}`}>
@@ -376,16 +412,59 @@ function TimeTag({ event, index, align }) {
   );
 }
 
-function Timeline() {
-  const sectionRef = useRef(null);
-  const spineRef  = useRef(null);
+/* ── Reusable timeline body — shared by both sections ── */
+function TimelineBody({ events, accents, spineRef }) {
+  return (
+    <div style={{ position: "relative", maxWidth: "860px", margin: "48px auto 0", zIndex: 2 }}>
+      {/* Spine */}
+      <div className="tl-spine-track">
+        <div className="tl-spine-fill" ref={spineRef} />
+      </div>
 
+      {events.map((e, i) => {
+        const cardRight = i % 2 === 0;
+        return (
+          <div key={i} className="tl-row">
+            {/* Left column */}
+            {cardRight
+              ? <TimeTag event={e} index={i} align="right" accents={accents} />
+              : (
+                <div style={{ paddingRight: "32px", position: "relative" }}>
+                  <div className="tl-connector left" />
+                  <TimelineCard event={e} index={i} side="left" accents={accents} />
+                </div>
+              )
+            }
+
+            {/* Center dot */}
+            <div className="tl-node">
+              <div className="tl-dot-outer" />
+            </div>
+
+            {/* Right column */}
+            {cardRight
+              ? (
+                <div style={{ paddingLeft: "32px", position: "relative" }}>
+                  <div className="tl-connector right" />
+                  <TimelineCard event={e} index={i} side="right" accents={accents} />
+                </div>
+              )
+              : <TimeTag event={e} index={i} align="left" accents={accents} />
+            }
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ── Hook: wires up all the IntersectionObservers for a section ── */
+function useTimelineReveal(sectionRef, spineRef) {
   useEffect(() => {
     const section = sectionRef.current;
     const spineFill = spineRef.current;
     if (!section || !spineFill) return;
 
-    /* ── 1. Spine: one-shot animation when section enters viewport ── */
     const spineObs = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         spineFill.classList.add("tl-spine-animate");
@@ -394,27 +473,21 @@ function Timeline() {
     }, { threshold: 0.1 });
     spineObs.observe(section);
 
-    /* ── 2. Per-row reveal via IntersectionObserver ── */
     const rows = section.querySelectorAll(".tl-row");
-
     const rowObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const row = entry.target;
 
-        // card
         const card = row.querySelector(".tl-card");
         if (card) card.classList.add("tl-visible");
 
-        // dot
         const dot = row.querySelector(".tl-dot-outer");
         if (dot) setTimeout(() => dot.classList.add("tl-dot-visible"), 80);
 
-        // connector
         const conn = row.querySelector(".tl-connector");
         if (conn) conn.classList.add("tl-conn-visible");
 
-        // time tag
         const tag = row.querySelector(".tl-time-col");
         if (tag) tag.classList.add("tl-time-visible");
 
@@ -424,7 +497,6 @@ function Timeline() {
 
     rows.forEach(r => rowObs.observe(r));
 
-    /* ── 3. Section header reveal ── */
     const header = section.querySelector(".tl-header");
     if (header) {
       const hObs = new IntersectionObserver(([e]) => {
@@ -433,10 +505,51 @@ function Timeline() {
       hObs.observe(header);
     }
 
-    return () => {
-      rowObs.disconnect();
-    };
+    return () => { rowObs.disconnect(); };
   }, []);
+}
+
+/* ── Registration Timeline ── */
+function RegistrationTimeline() {
+  const sectionRef = useRef(null);
+  const spineRef   = useRef(null);
+  useTimelineReveal(sectionRef, spineRef);
+
+  const events = [
+    {
+      time: "25 Mar 2026 · 7:00 PM",
+      title: "Registrations Open",
+      desc: "The registration portal goes live. Visit the official website to sign up your team and secure your spot.",
+    },
+    {
+      time: "7 Apr 2026 · 11:59 PM",
+      title: "Registrations Close",
+      desc: "Last chance to register. All team details must be submitted before midnight. No late entries will be accepted.",
+    },
+    {
+      time: "8 Apr 2026 · Tentative",
+      title: "Results Announcement",
+      desc: "Selected teams will be notified via email. Shortlisted participants can proceed to confirm their attendance.",
+    },
+  ];
+
+  return (
+    <section className="timeline-section" id="registration-timeline" ref={sectionRef}>
+      <div className="tl-bg-stripes" />
+      <div className="tl-header reveal" style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
+        <p className="section-label">&gt; Before You Arrive</p>
+        <h2 className="section-title">Registration Timeline</h2>
+      </div>
+      <TimelineBody events={events} accents={REG_ACCENTS} spineRef={spineRef} />
+    </section>
+  );
+}
+
+/* ── Event Schedule Timeline ── */
+function EventTimeline() {
+  const sectionRef = useRef(null);
+  const spineRef   = useRef(null);
+  useTimelineReveal(sectionRef, spineRef);
 
   const events = [
     {
@@ -449,13 +562,11 @@ function Timeline() {
       title: "Inauguration",
       desc: "Welcome address, event overview, rules briefing, and introduction of mentors & judges.",
     },
-
     {
       time: "Day 1 · 10:00 AM",
       title: "Hackathon Kickoff",
       desc: "24hrs countdown begins. Teams brainstorm, plan, and start building their solutions.",
     },
-
     {
       time: "Day 1 · 2:00 PM",
       title: "Mentorship Rounds",
@@ -471,84 +582,51 @@ function Timeline() {
       title: "Checkpoint 2: Implementation Review",
       desc: "Teams incorporate feedback, refine their solutions, and prepare for final submission.",
     },
-
     {
       time: "Day 2 · 7:00 AM",
       title: "Checkpoint 3: Final Submission",
       desc: "All teams submit their final code, documentation, and presentation materials for judging.",
     },
-
     {
       time: "Day 2 · 10:00 AM",
       title: "Hackathon Ends",
       desc: "Coding stops. Judges begin evaluating projects based on innovation, impact, technical complexity, and presentation.",
     },
-
     {
       time: "Day 2 · 10:30 PM",
       title: "Valedictory & Awards Ceremony",
       desc: "Winners are announced, and certificates are distributed to all participants.",
-    }
-
-
+    },
   ];
 
   return (
     <section className="timeline-section" id="timeline" ref={sectionRef}>
-      <style>{TIMELINE_STYLES}</style>
       <div className="tl-bg-stripes" />
-
-      {/* Section header */}
       <div className="tl-header reveal" style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
         <p className="section-label">&gt; Event Schedule</p>
         <h2 className="section-title">April 15–16, 2026</h2>
       </div>
-
-      {/* Timeline body */}
-      <div style={{ position: "relative", maxWidth: "860px", margin: "48px auto 0", zIndex: 2 }}>
-
-        {/* Spine — ghost track + animated fill */}
-        <div className="tl-spine-track">
-          <div className="tl-spine-fill" ref={spineRef} />
-        </div>
-
-        {events.map((e, i) => {
-          const cardRight = i % 2 === 0;
-          return (
-            <div key={i} className="tl-row">
-
-              {/* Left column */}
-              {cardRight
-                ? <TimeTag event={e} index={i} align="right" />
-                : (
-                  <div style={{ paddingRight: "32px", position: "relative" }}>
-                    <div className="tl-connector left" />
-                    <TimelineCard event={e} index={i} side="left" />
-                  </div>
-                )
-              }
-
-              {/* Center dot */}
-              <div className="tl-node">
-                <div className="tl-dot-outer" />
-              </div>
-
-              {/* Right column */}
-              {cardRight
-                ? (
-                  <div style={{ paddingLeft: "32px", position: "relative" }}>
-                    <div className="tl-connector right" />
-                    <TimelineCard event={e} index={i} side="right" />
-                  </div>
-                )
-                : <TimeTag event={e} index={i} align="left" />
-              }
-
-            </div>
-          );
-        })}
-      </div>
+      <TimelineBody events={events} accents={EVENT_ACCENTS} spineRef={spineRef} />
     </section>
+  );
+}
+
+/* ── Default export: both timelines stacked ── */
+function Timeline() {
+  return (
+    <>
+      <style>{TIMELINE_STYLES}</style>
+      <RegistrationTimeline />
+
+      {/* Visual breathing room + divider between the two sections */}
+      <div style={{ background: "var(--beige)", padding: "0 5%" }}>
+        <div className="tl-section-divider">
+          <span className="tl-divider-label">· · · event schedule below · · ·</span>
+        </div>
+      </div>
+
+      <EventTimeline />
+    </>
   );
 }
 
