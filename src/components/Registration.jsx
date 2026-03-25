@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 function Registration() {
-  const isTemplateAvailable = false;
+  const isTemplateAvailable = true;
+
   return (
     <section className="reg-section" id="register">
 
+      {/* HEADER */}
       <div className="reveal" style={{ textAlign: "center", marginBottom: 0 }}>
         <p className="section-label">&gt; Register Now</p>
         <h2 className="section-title">Join the Hackathon</h2>
@@ -23,13 +27,16 @@ function Registration() {
             <li>Meals & refreshments provided throughout the event</li>
           </ul>
 
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLScNL5k6rIkWgJW6vDy2zkgjG-76oth5cLgl30ijKgkrnp3-jA/viewform" className="reg-btn">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScNL5k6rIkWgJW6vDy2zkgjG-76oth5cLgl30ijKgkrnp3-jA/viewform"
+            className="reg-btn"
+          >
             Register Online →
           </a>
         </div>
 
         {/* RIGHT CARD */}
-        <div className="reg-card reveal" >
+        <div className="reg-card reveal">
           <h3>Prizes & Perks</h3>
 
           <div className="fee-big">₹60,000+</div>
@@ -43,8 +50,7 @@ function Registration() {
           </ul>
         </div>
 
-
-
+        {/* TEMPLATE CARD */}
         <div className={`reg-card reveal ${!isTemplateAvailable ? "disabled-card" : ""}`}>
           <h3>Submission Guidelines</h3>
 
@@ -64,20 +70,18 @@ function Registration() {
           )}
 
           <a
-            href={isTemplateAvailable ? "https://example.com/template.pdf" : "#"}
+            href={isTemplateAvailable ? "/Technotsav%20Presentation%20Template.pptx" : "#"}
+            download="Technotsav_Presentation_Template.pptx"
             className={`reg-btn ${!isTemplateAvailable ? "disabled-btn" : ""}`}
-            target="_blank"
-            rel="noopener noreferrer"
             onClick={(e) => {
               if (!isTemplateAvailable) e.preventDefault();
             }}
           >
-            Download Template ↓
+            Download Template!
           </a>
         </div>
 
       </div>
-
     </section>
   );
 }

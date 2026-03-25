@@ -41,13 +41,13 @@ function Coordinators() {
     },
     {
       img: KeerthanImg,
-      role: "Secretary",
+      role: "Student Coordinator",
       name: "Keerthan S Gangadikar",
       phone: "+91 94817 12179",
     },
     {
       img: AbhilashImg,
-      role: "Social Media Lead",
+      role: "Student Coordinator",
       name: "Abhilash S",
       phone: "+91 96068 38375",
     },
