@@ -524,7 +524,11 @@ backdrop-filter: blur(12px);
   cursor: default;
   position: relative;
   overflow: hidden;
+  position: relative;
+  overflow: hidden; 
 }
+
+
 
 .domain-card::before {
   content: '';
@@ -1675,5 +1679,24 @@ footer {
   }
   100% {
     opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .termHeader {
+    justify-content: space-between;
+  }
+
+  .termTitle {
+    width: 100%;
+    order: 3;   /* push title below */
+    text-align: left;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .term-title {
+    display: none;
   }
 }

@@ -4,7 +4,9 @@ function Ticker() {
     "Last Date to submit ideas: 7th April",
     "Results Announcement: 8th April",
     "Hackathon Starts: APRIL 15–16 2026",
-    "Code your way in!"
+    "Innovation Begins with you!",
+    "New Problem Statements Released for AIOT & Robotics Domain!",
+    "Problem Statements are now available for downloading!"
   ];
 
   // duplicate for seamless loop (same as your HTML)

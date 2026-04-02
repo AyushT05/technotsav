@@ -522,12 +522,12 @@ function RegistrationTimeline() {
       desc: "The registration portal goes live. Visit the official website to sign up your team and secure your spot.",
     },
     {
-      time: "7 Apr 2026 · 11:59 PM",
+      time: "7 Apr 2026 [Tentative] · 11:59 PM ",
       title: "Registrations Close",
       desc: "Last chance to register. All team details must be submitted before midnight. No late entries will be accepted.",
     },
     {
-      time: "8 Apr 2026 · Tentative",
+      time: "8 Apr 2026[Tentative] · 5:00 PM ",
       title: "Results Announcement",
       desc: "Selected teams will be notified via email. Shortlisted participants can proceed to confirm their attendance.",
     },
