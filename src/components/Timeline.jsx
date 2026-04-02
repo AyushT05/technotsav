@@ -527,7 +527,7 @@ function RegistrationTimeline() {
       desc: "Last chance to register. All team details must be submitted before midnight. No late entries will be accepted.",
     },
     {
-      time: "8 Apr 2026[Tentative] · 5:00 PM ",
+      time: "8 Apr 2026 [Tentative] · 5:00 PM ",
       title: "Results Announcement",
       desc: "Selected teams will be notified via email. Shortlisted participants can proceed to confirm their attendance.",
     },
