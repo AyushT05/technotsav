@@ -8,6 +8,7 @@ import Timeline from "./components/Timeline";
 import Registration from "./components/Registration";
 import Coordinators from "./components/Coordinators";
 import Footer from "./components/Footer";
+import FAQSection from "./components/FAQs";
 
 function App() {
   useEffect(() => {
@@ -33,6 +34,7 @@ return (
     <Timeline/>
     <Registration/>
     <Coordinators/>
+    <FAQSection/>
     <Footer/>
 
   </>

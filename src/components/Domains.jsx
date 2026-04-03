@@ -152,125 +152,121 @@ const problemStatements = {
     },
   ],
   d2: [
+{
+  id: "AIOT-001",
+  title: "Crop Disease Early Warning via Leaf Image + IoT Sensor Fusion",
+  sections: [
     {
-      id: "AIOT-001",
-      title: "Crop Disease Early Warning via Leaf Image + IoT Sensor Fusion",
-      sections: [
-        {
-          num: "1",
-          label: "PROBLEM_STATEMENT",
-          type: "text",
-          content:
-            "India loses an estimated Rs 90,000 crore annually to plant diseases, yet most smallholder farmers lack access to agronomists or diagnostic labs. Participants must build a field-deployable IoT system that combines a low-cost camera module with environmental sensors to provide autonomous, on-device crop disease detection.",
-        },
-        {
-          num: "2",
-          label: "EXPLANATION",
-          type: "text+table",
-          contentBefore:
-            "The core innovation is sensor fusion for alert confidence: a visual detection alone may trigger false alarms from lighting or leaf damage. By gating alerts on both vision and environmental conditions, the system dramatically reduces false positives.",
-          contentAfter:
-            "The PlantVillage dataset (54,306 images, 38 disease classes) is publicly available and pre-trained MobileNetV2 TFLite models are downloadable, making this feasible within a hackathon timeline.",
-          table: {
-            headers: ["Stage", "Component", "Function", "Output"],
-            rows: [
-              ["Capture", "ESP32-CAM", "Periodic leaf image capture (every 30 min or on trigger)", "JPEG frame buffer"],
-              ["Inference", "TFLite model", "On-device classification: Healthy / Early Blight / Late Blight / Rust", "Disease class + confidence score"],
-              ["Fusion gate", "DHT22 + Soil", "Alert only if confidence > threshold AND humidity > 70% or soil wet", "Boolean: send alert?"],
-              ["Notification", "Telegram Bot", "Push image + disease label + recommended action to farmer's phone", "Farmer receives diagnosis"],
-            ],
-          },
-          deliverables: [
-            "Live disease classification demo on real or printed leaf images",
-            "Sensor-fused alert logic — show a case where high humidity triggers vs suppresses alert",
-            "Telegram notification demo with photo + diagnosis message",
-            "Model accuracy report with confusion matrix (min 75% accuracy on test set)",
-          ],
-        },
-      ],
+      num: "AIOT-001",
+      label: "PROBLEM_STATEMENT",
+      type: "text",
+      content:
+        "India loses an estimated Rs 90,000 crore annually to plant diseases, yet most smallholder farmers lack access to agronomists or diagnostic labs. Participants must build a field-deployable IoT system that combines a low-cost camera module with environmental sensors to provide autonomous, on-device crop disease detection.",
     },
     {
-      id: "AIOT-002",
-      title: "Edge AI Sound Classifier for Industrial Safety (TinyML)",
-      sections: [
-        {
-          num: "1",
-          label: "PROBLEM_STATEMENT",
-          type: "text",
-          content:
-            "Industrial accidents caused by undetected auditory signals — emergency sirens, glass breaks, or abnormal machine sounds — result in thousands of preventable injuries annually. Participants must train a TinyML sound classification model on Edge Impulse and deploy it onto the Arduino Nano 33 BLE Sense's onboard microphone.",
-        },
-        {
-          num: "2",
-          label: "EXPLANATION",
-          type: "text+table",
-          contentBefore:
-            "TinyML (machine learning on microcontrollers) is one of the fastest-growing fields in embedded systems. The Arduino Nano 33 BLE Sense has only 256KB RAM and 1MB Flash — deploying a functional neural network within these constraints requires careful model design, quantization, and feature engineering.",
-          contentAfter:
-            "Edge Impulse (free tier) provides a full MLOps pipeline: data collection via the browser, MFCC / MFE audio feature extraction, neural network training, and one-click Arduino library export.",
-          table: {
-            headers: ["Sound class", "Industrial scenario", "Required response"],
-            rows: [
-              ["Normal machine hum", "Baseline operating state — motor, conveyor, HVAC", "No action — log as normal"],
-              ["Glass break", "Safety panel shattered, equipment impact, intrusion", "Immediate alert + buzzer"],
-              ["Emergency siren", "Fire alarm, evacuation signal, chemical leak warning", "Alert + relay trigger for evacuation light"],
-              ["Silence / anomaly", "Machine stopped unexpectedly — possible fault or shutdown", "Maintenance alert after 10s silence window"],
-            ],
-          },
-          deliverables: [
-            "4-class real-time inference demo — live audio classification on device",
-            "Confusion matrix with minimum 80% overall accuracy across all classes",
-            "Latency measurement — inference time in ms printed to serial monitor",
-            "Edge vs cloud trade-off analysis: latency, privacy, and cost comparison",
-          ],
-        },
+      num: "2",
+      label: "EXPLANATION",
+      type: "text+table",
+      contentBefore:
+        "Crop disease detection in real-world farm conditions is often unreliable due to factors like lighting variations, physical leaf damage, and environmental noise, which can lead to incorrect predictions.",
+      contentAfter:
+        "Participants are expected to improve the reliability of such systems by leveraging additional contextual information and making more informed decisions under uncertain conditions. The solution should be practical for on-field deployment, considering constraints like cost, efficiency, and usability for smallholder farmers.",
+      table: {
+        headers: ["Aspect", "Description", "Objective"],
+        rows: [
+          ["Problem Context", "Disease detection fails under real-world inconsistencies", "Highlight limitations of ideal lab conditions"],
+          ["Reliability Gap", "Predictions may be affected by noise and ambiguous inputs", "Encourage more dependable decision-making"],
+          ["Context Usage", "Additional information can support better interpretation of observations", "Improve confidence in outputs"],
+          ["Decision Making", "Handling uncertain or conflicting inputs effectively", "Reduce incorrect or unnecessary alerts"],
+          ["Deployment Focus", "System must work in practical farm environments", "Ensure usability, affordability, and efficiency"]
+        ],
+      },
+      deliverables: [
+        "Live disease classification demo on real or printed leaf images",
+        "Sensor-fused alert logic — show a case where contextual conditions influence alert decisions",
+        "Notification demo with image + diagnosis message",
+        "Model accuracy report with confusion matrix (min 75% accuracy on test set)"
       ],
+    },
+  ],
+},
+{
+  id: "AIOT-002",
+  title: "Edge AI Sound Classifier for Industrial Safety (Tiny ML)",
+  sections: [
+    {
+      num: "1",
+      label: "PROBLEM_STATEMENT",
+      type: "text",
+      content:
+        "Industrial accidents caused by undetected auditory signals — emergency sirens, glass breaks, or abnormal machine sounds — result in thousands of preventable injuries annually. Participants must train a TinyML sound classification model and deploy it onto a resource-constrained embedded device with an onboard microphone for real-time audio monitoring.",
     },
     {
-      id: "AIOT-003",
-      title: "Blind Navigation Assistant with Obstacle + Object Announcement",
-      sections: [
-        {
-          num: "1",
-          label: "PROBLEM_STATEMENT",
-          type: "text",
-          content:
-            "India has 15 million visually impaired people — the largest blind population in the world — yet affordable, intelligent assistive navigation technology remains largely inaccessible. Participants must build a wearable chest-mounted navigation assistant that provides real-time, fully offline guidance.",
-        },
-        {
-          num: "2",
-          label: "EXPLANATION",
-          type: "text+table+table",
-          contentBefore:
-            "The system operates across two complementary sensing modalities that work at different ranges and serve different safety needs.",
-          contentMiddle:
-            "YOLOv5-nano is the smallest variant in the YOLO family — only 1.9M parameters, ~4MB model size — making it feasible on a Raspberry Pi 4 at 10–15 FPS.",
-          contentAfter: "",
-          table: {
-            headers: ["Modality", "Range", "Output", "Latency target"],
-            rows: [
-              ["Obstacle avoidance (HC-SR04 Ultrasonic)", "0 – 200 cm", "Haptic buzz + proximity beep frequency", "< 50ms"],
-              ["Object announcement (Pi Camera v2)", "0.6 – 6 m", "TTS audio: 'Person ahead', 'Stairs detected'", "< 500ms"],
-            ],
-          },
-          table2: {
-            headers: ["Component", "Role", "Key technical constraint"],
-            rows: [
-              ["YOLOv5-nano", "Real-time object detection and class labeling", "Must run at minimum 5 FPS on RPi 4 without GPU"],
-              ["gTTS / pyttsx3", "Convert detection labels to spoken audio output", "Offline TTS (pyttsx3) preferred; gTTS fallback for Wi-Fi scenarios"],
-              ["HC-SR04", "Continuous distance polling for near-field obstacle warning", "Runs on separate GPIO thread to avoid blocking vision pipeline"],
-              ["Bone-conduction earpiece", "Audio output keeping ambient hearing intact", "3.5mm AUX or Bluetooth; latency < 100ms for BT variant"],
-            ],
-          },
-          deliverables: [
-            "Live navigation demo through an obstacle course (minimum 5 obstacles)",
-            "Object announcement demo — 5 distinct classes correctly identified and spoken",
-            "Latency + false-positive measurement report for both sensing modalities",
-            "Accessibility impact report — deployment scenario and cost analysis for Indian users",
-          ],
-        },
+      num: "2",
+      label: "EXPLANATION",
+      type: "text+table",
+      contentBefore:
+        "Detecting critical sound events in industrial environments is challenging due to background noise, overlapping signals, and varying acoustic conditions, which can lead to missed or incorrect detections.",
+      contentAfter:
+        "Participants are expected to design a system capable of reliably distinguishing between different types of audio signals under constrained computational resources. The challenge lies in balancing model accuracy, responsiveness, and efficiency within a resource-limited embedded environment, while ensuring the system remains practical for real-world deployment.",
+      table: {
+        headers: ["Aspect", "Description", "Objective"],
+        rows: [
+          ["Problem Context", "Industrial environments contain complex and noisy audio patterns", "Highlight challenges in real-world sound interpretation"],
+          ["Detection Challenge", "Different sound events may overlap or resemble each other", "Ensure reliable differentiation between classes"],
+          ["Resource Constraints", "Limited memory and processing capability on embedded devices", "Encourage efficient model design"],
+          ["Real-time Response", "Timely detection is critical for safety-related events", "Minimize latency in decision-making"],
+          ["Deployment Focus", "System must operate reliably in practical industrial settings", "Ensure robustness and usability"]
+        ],
+      },
+      deliverables: [
+        "4-class real-time inference demo — live audio classification on device",
+        "Confusion matrix with minimum 80% overall accuracy across all classes",
+        "Latency measurement — inference time in ms printed to serial monitor",
+        "Edge vs cloud trade-off analysis: latency, privacy, and cost comparison"
       ],
     },
+  ],
+},
+    
+    {
+  id: "AIOT-003",
+  title: "Blind Navigation Assistant with Obstacle + Object Detection",
+  sections: [
+    {
+      num: "1",
+      label: "PROBLEM_STATEMENT",
+      type: "text",
+      content:
+        "India has 15 million visually impaired people — the largest blind population in the world — yet affordable, intelligent assistive navigation technology remains largely inaccessible. Participants must build a wearable chest-mounted navigation assistant that provides real-time, fully offline guidance.",
+    },
+    {
+      num: "2",
+      label: "EXPLANATION",
+      type: "text+table",
+      contentBefore:
+        "Designing a reliable navigation assistant for visually impaired users is challenging due to dynamic environments, varying obstacle distances, and the need for immediate and accurate feedback to ensure user safety.",
+      contentAfter:
+        "Participants are expected to develop a system that can interpret surroundings and provide timely, intuitive guidance while operating entirely offline. The challenge lies in balancing responsiveness, accuracy, and usability, ensuring that the system remains practical, non-intrusive, and dependable in real-world scenarios.",
+      table: {
+        headers: ["Aspect", "Description", "Objective"],
+        rows: [
+          ["Problem Context", "Users navigate through dynamic and unpredictable environments", "Highlight real-world mobility challenges"],
+          ["Safety Requirement", "System must detect and respond to nearby obstacles and hazards", "Ensure user safety through timely feedback"],
+          ["Multi-range Awareness", "Different types of information are needed at varying distances", "Encourage comprehensive environmental understanding"],
+          ["User Interaction", "Feedback must be intuitive and non-intrusive", "Enable seamless and safe user experience"],
+          ["Deployment Focus", "System should be wearable and operate without external dependencies", "Ensure practicality, portability, and accessibility"]
+        ],
+      },
+      deliverables: [
+        "Live navigation demo through an obstacle course (minimum 5 obstacles)",
+        "Object announcement demo — 5 distinct classes correctly identified and conveyed",
+        "Latency + false-positive measurement report for system responsiveness",
+        "Accessibility impact report — deployment scenario and cost analysis for Indian users"
+      ],
+    },
+  ],
+},
 
     {
       "id": "AIOT-004",
