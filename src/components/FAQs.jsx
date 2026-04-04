@@ -36,7 +36,7 @@ const faqData = [
     id: 6,
     cat: "team",
     q: "Can team members be from different colleges or branches?",
-    a: "Team members can be from different branches, but all members must belong to the same college."
+    a: "Yes, Team members can be from different branches or even different colleges."
   },
   {
     id: 7,
