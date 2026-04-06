@@ -1979,5 +1979,11 @@ font-family: 'Share Tech Mono', monospace;
   gap: 8px; /* cleaner than margin */
 }
 
+.visitor-center {
+  grid-column: span 2;   /* take full width of grid */
+  display: flex;
+  justify-content: center; /* center horizontally */
+  margin-top: 10px;
+}
 
 

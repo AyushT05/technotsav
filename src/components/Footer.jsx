@@ -3,16 +3,9 @@ import ieeeCisLogo from "../assets/ieee-cis.png";
 import vvceLogo from "../assets/vvce-logo.png";
 import { useEffect, useState } from "react";
 
+
 function Footer() {
-  useEffect(() => {
-    fetch("https://ayusht05.goatcounter.com/counter/TOTAL.json")
-      .then(res => res.json())
-      .then(data => {
-        const el = document.getElementById("visit-counter");
-        if (el) el.textContent = data.count;
-      })
-      .catch(console.error);
-  }, []);
+  
   return (
     <footer className="footer">
 
@@ -30,10 +23,7 @@ function Footer() {
         Autonomous Institute, Affiliated to VTU, Belagavi · Accredited by NBA & NAAC with A Grade
       </div>
 
-      {/* COUNTER */}
-      <div style={{ color: "white", fontSize: "0.85rem", marginTop: "4px" }}>
-        Visitors: <span id="visit-counter">...</span>
-      </div>
+      
 
       {/* INSTAGRAM */}
       <a
