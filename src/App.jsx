@@ -7,6 +7,7 @@ import Domains from "./components/Domains";
 import Timeline from "./components/Timeline";
 import Registration from "./components/Registration";
 import Coordinators from "./components/Coordinators";
+import Footers from "./components/Footers";
 import Footer from "./components/Footer";
 import FAQSection from "./components/FAQs";
 
