@@ -1,8 +1,8 @@
 function Ticker() {
   const items = [
     "Registrations Opened!",
-    "Last Date to submit ideas: 7th April",
-    "Results Announcement: 8th April",
+    "Registrations Extended till 8th April!",
+    "Results Announcement: 9th April",
     "Hackathon Starts: APRIL 15–16 2026",
     "Innovation Begins with you!",
     "New Problem Statements Released for AIOT & Robotics Domain!",
