@@ -1,3 +1,5 @@
+import VisitorCount from "./VisitorCount";
+
 function About() {
   return (
     <section className="section about-section" id="about">
@@ -6,10 +8,10 @@ function About() {
       <div className="tl-bg-stripes"></div>
 
       <div className="about-grid">
-        
+
         <div className="about-text reveal">
           <p className="section-label">&gt; About the Event</p>
-          
+
           <h2 className="section-title">
             Build. Break.<br />Innovate.
           </h2>
@@ -38,7 +40,7 @@ function About() {
         </div>
 
         <div className="about-stats reveal">
-          
+
           <div className="stat-card">
             <span className="stat-num">24</span>
             <span className="stat-label">Hours of Coding</span>
@@ -57,6 +59,10 @@ function About() {
           <div className="stat-card">
             <span className="stat-num">2–4</span>
             <span className="stat-label">Members / Team</span>
+          </div>
+
+          <div className="visitor-center">
+            <VisitorCount />
           </div>
 
         </div>
