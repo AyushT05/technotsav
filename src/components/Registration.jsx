@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 function Registration() {
-  const isTemplateAvailable = true;
+  const isTemplateAvailable = false;
+  const isRegistrationOpen = false;
 
   return (
     <section className="reg-section" id="register">
@@ -15,7 +16,7 @@ function Registration() {
       <div className="reg-grid">
 
         {/* LEFT CARD */}
-        <div className="reg-card reveal">
+        <div className={`reg-card reveal ${!isRegistrationOpen ? "disabled-card" : ""}`}>
           <h3>Registration Details</h3>
 
           <ul className="reg-list">
@@ -28,10 +29,13 @@ function Registration() {
           </ul>
 
           <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScNL5k6rIkWgJW6vDy2zkgjG-76oth5cLgl30ijKgkrnp3-jA/viewform"
-            className="reg-btn"
+            href={isRegistrationOpen ? "https://docs.google.com/forms/d/e/1FAIpQLScNL5k6rIkWgJW6vDy2zkgjG-76oth5cLgl30ijKgkrnp3-jA/viewform" : "#"}
+            className={`reg-btn ${!isRegistrationOpen ? "disabled-btn" : ""}`}
+            onClick={(e) => {
+              if (!isRegistrationOpen) e.preventDefault();
+            }}
           >
-            Register Online →
+            {isRegistrationOpen ? "Register Online →" : "REGISTRATIONS CLOSED :("}
           </a>
         </div>
 
@@ -63,11 +67,7 @@ function Registration() {
             <li>The presentation will be part of final evaluation — prepare accordingly</li>
           </ul>
 
-          {!isTemplateAvailable && (
-            <p className="template-msg" style={{ textAlign: "center" }}>
-              Template to be shared soon!
-            </p>
-          )}
+
 
           <a
             href={isTemplateAvailable ? "/Technotsav%20Presentation%20Template.pptx" : "#"}
@@ -77,7 +77,7 @@ function Registration() {
               if (!isTemplateAvailable) e.preventDefault();
             }}
           >
-            Download Template!
+            {isTemplateAvailable ? "Download Template!" : "Template removed :("}
           </a>
         </div>
 

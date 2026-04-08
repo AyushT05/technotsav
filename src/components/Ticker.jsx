@@ -1,12 +1,11 @@
 function Ticker() {
   const items = [
-    "Registrations Opened!",
-    "Registrations Extended till 8th April!",
-    "Results Announcement: 9th April",
+    "Registrations Closed!",
+    "Thank you for the overwhelming response!",
+    "Results Announcement: 9th April 8:00 PM on our Instagram handle!",
     "Hackathon Starts: APRIL 15–16 2026",
     "Innovation Begins with you!",
-    "New Problem Statements Released for AIOT & Robotics Domain!",
-    "Problem Statements are now available for downloading!"
+    "Get ready to code, create, and conquer!",
   ];
 
   // duplicate for seamless loop (same as your HTML)
