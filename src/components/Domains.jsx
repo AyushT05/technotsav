@@ -1302,7 +1302,7 @@ function Domains() {
       icon: "📡",
       name: "AIoT & Robotics",
       desc: "Build intelligent edge systems that fuse AI with physical sensors and actuators. From TinyML to computer vision, create solutions that sense, think, and act in the real world.",
-      isNew: true,
+      isNew: false,
     },
     {
       id: "d3",
